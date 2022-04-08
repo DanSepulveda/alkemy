@@ -15,7 +15,12 @@ pool.getConnection((err, connection) => {
         return
     }
     if (connection) {
+        // Creating database
         pool.query('CREATE DATABASE IF NOT EXISTS alkemy')
+
+        // Creating users table
+        pool.query('CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20) NOT NULL, email VARCHAR(255) NOT NULL UNIQUE KEY, password VARCHAR(256) NOT NULL, admin BOOL NOT NULL)')
+
         connection.release()
         console.log("Database connected")
     }

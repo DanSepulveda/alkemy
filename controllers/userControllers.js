@@ -12,8 +12,6 @@ const userControllers = {
         username = username.toLowerCase()
 
         try {
-            await pool.query('CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20) NOT NULL, email VARCHAR(255) NOT NULL UNIQUE KEY, password VARCHAR(256) NOT NULL, admin BOOL NOT NULL)')
-
             // Checking if email is registered
             const user = await pool.query(`SELECT email FROM users WHERE email = '${email}'`)
             if (user.length) throw new Error('Email already in use')
@@ -51,7 +49,9 @@ const userControllers = {
         }
     },
     verifyToken: async (req, res) => {
-
+        // The request only comes here if token is correct
+        const { username, email, id } = req.user[0]
+        res.status(200).json({ success: true, response: { username, email, id } })
     },
     deleteAccount: async (req, res) => {
 
