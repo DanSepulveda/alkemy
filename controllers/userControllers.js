@@ -17,7 +17,7 @@ const userControllers = {
             if (user.length) throw new Error('Email already in use')
 
             // Creating new user in database
-            const newUser = await pool.query(`INSERT INTO users VALUES (NULL, '${username}', '${email}', '${hashedPass}', false)`)
+            const newUser = await pool.query(`INSERT INTO users VALUES (NULL, '${username}', '${email}', '${hashedPass}')`)
             const id = newUser.insertId
 
             // Generating token for new user
@@ -51,10 +51,32 @@ const userControllers = {
     verifyToken: async (req, res) => {
         // The request only comes here if token is correct
         const { username, email, id } = req.user[0]
-        res.status(200).json({ success: true, response: { username, email, id } })
+        res.status(200).json({ success: true, response: { id, username, email } })
     },
     deleteAccount: async (req, res) => {
+        const userPassword = req.body.password
+        const { id } = req.headers
+        const { password } = req.user[0]
 
+        try {
+            // Checking if password is correct before deleting account
+            const passMatch = bcrypt.compareSync(userPassword, password)
+            if (!passMatch) throw new Error('Incorrect Password')
+
+            // Deleting account
+            await pool.query(`DELETE FROM users WHERE id = ${id}`)
+            res.status(200).json({ success: true, response: 'Account deleted successfully' })
+        } catch (error) {
+            res.json({ success: false, error: error.message })
+        }
+    },
+    getAllUsers: async (req, res) => {
+        try {
+            const users = await pool.query('SELECT * FROM users')
+            res.status(200).json({ success: true, response: users })
+        } catch (error) {
+            res.json({ success: false, error: error.message })
+        }
     },
     deleteUsersTable: async (req, res) => {
         try {
