@@ -20,7 +20,7 @@ const userControllers = {
             if (!admin) throw new Error('Access denied')
 
             await pool.query('DROP TABLE users')
-            res.status(200).json({ success: true })
+            res.status(200).json({ success: true, message: 'Table users deleted successfully' })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }

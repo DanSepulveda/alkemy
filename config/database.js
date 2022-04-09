@@ -21,6 +21,9 @@ pool.getConnection((err, connection) => {
         // Creating users table
         pool.query('CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20) NOT NULL, email VARCHAR(255) NOT NULL UNIQUE KEY, password VARCHAR(256) NOT NULL, admin BOOL NOT NULL)')
 
+        // Creating categories table
+        pool.query('CREATE TABLE IF NOT EXISTS categories (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(20) NOT NULL, type VARCHAR(10) NOT NULL, image VARCHAR(50) NOT NULL)')
+
         connection.release()
         console.log("Database connected")
     }
