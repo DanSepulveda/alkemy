@@ -1,14 +1,15 @@
 const express = require('express')
+const passport = require("passport").authenticate('jwt', { session: false })
+const router = express.Router()
 
 // CONTROLLERS
 const userControllers = require('../controllers/usersControllers')
 const categoriesControllers = require('../controllers/categoriesControllers')
+const transactionsControllers = require('../controllers/transactionsControllers')
 // ADMIN CONTROLLERS
 const adminUsersControllers = require('../controllers/admin/usersControllers')
 const adminCategoriesControllers = require('../controllers/admin/categoriesControllers')
-
-const passport = require("passport").authenticate('jwt', { session: false })
-const router = express.Router()
+const adminTransactionsControllers = require('../controllers/admin/transactionsControllers')
 
 // ------------------- USERS -------------------
 // Create new user
@@ -42,5 +43,27 @@ router.route('/categories')
     .put(passport, adminCategoriesControllers.editCategory)
     .delete(passport, adminCategoriesControllers.deleteCategoriesTable)
     .get(categoriesControllers.getAllCategories) //no admin action
+
+// ------------------- TRANSACTIONS -------------------
+router.route('/transactions')
+    .post(passport, transactionsControllers.createTransaction) //ok
+    .get(passport, transactionsControllers.getUserTransactions) //ok
+    .delete(passport, adminTransactionsControllers.deleteTransactionsTable) //admin action
+
+router.route('/transaction/:id')
+    .get(passport, transactionsControllers.getTransaction) //ok
+    .put(passport, transactionsControllers.editTransaction)
+    .delete(passport, transactionsControllers.deleteTransaction)
+
+router.route('/transactions/:query')
+    .get(transactionsControllers.getTransactions)
+
+router.route('/transactions/cat/:type')
+    .get(transactionsControllers.getTransactionsPerType)
+
+
+
+router.route('/resume')
+    .get(transactionsControllers.getResume)
 
 module.exports = router
