@@ -17,7 +17,7 @@ const userControllers = {
             if (user.length) throw new Error('Email already in use')
 
             // Creating new user in database
-            const newUser = await pool.query(`INSERT INTO users VALUES (NULL, '${username}', '${email}', '${hashedPass}')`)
+            const newUser = await pool.query(`INSERT INTO users VALUES (NULL, '${username}', '${email}', '${hashedPass}', false)`)
             const id = newUser.insertId
 
             // Generating token for new user
@@ -64,26 +64,10 @@ const userControllers = {
             if (!passMatch) throw new Error('Incorrect Password')
 
             // Deleting account
-            await pool.query(`DELETE FROM users WHERE id = ${id}`)
+            await pool.query(`DELETE FROM users WHERE id = '${id}'`)
             res.status(200).json({ success: true, response: 'Account deleted successfully' })
         } catch (error) {
             res.json({ success: false, error: error.message })
-        }
-    },
-    getAllUsers: async (req, res) => {
-        try {
-            const users = await pool.query('SELECT * FROM users')
-            res.status(200).json({ success: true, response: users })
-        } catch (error) {
-            res.json({ success: false, error: error.message })
-        }
-    },
-    deleteUsersTable: async (req, res) => {
-        try {
-            await pool.query('DROP TABLE users')
-            res.status(200).json({ success: true })
-        } catch (e) {
-            res.json({ success: false })
         }
     }
 }

@@ -1,5 +1,6 @@
 const express = require('express')
-const userControllers = require('../controllers/userControllers')
+const userControllers = require('../controllers/usersControllers')
+const adminUsersControllers = require('../controllers/admin/usersControllers')
 const passport = require("passport").authenticate('jwt', { session: false })
 const router = express.Router()
 
@@ -17,8 +18,10 @@ router.route('/login')
 router.route('/user/:id')
     .delete(passport, userControllers.deleteAccount)
 
+// ------------------- ADMIN USERS -------------------
+// Get all users and delete table
 router.route('/users')
-    .get(userControllers.getAllUsers)
-    .delete(userControllers.deleteUsersTable)
+    .get(passport, adminUsersControllers.getAllUsers)
+    .delete(passport, adminUsersControllers.deleteUsersTable)
 
 module.exports = router
