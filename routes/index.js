@@ -25,31 +25,33 @@ router.route('/login')
 router.route('/user/:id')
     .delete(passport, userControllers.deleteAccount)
 
-// ------------------- USERS (Admin actions) -------------------
-// Get all users and delete table
+// Get all users, delete users table and create new admin
 router.route('/users')
-    .post(userControllers.signup)
-    .get(passport, adminUsersControllers.getAllUsers)
-    .delete(passport, adminUsersControllers.deleteUsersTable)
+    .post(passport, userControllers.signup)                                 // ADMIN ACTION
+    .get(passport, adminUsersControllers.getAllUsers)                       // ADMIN ACTION
+    .delete(passport, adminUsersControllers.deleteUsersTable)               // ADMIN ACTION
 
 // ------------------- CATEGORIES -------------------
+// Get all categories, create new category and delete category table
+router.route('/categories')
+    .get(categoriesControllers.getAllCategories)
+    .post(passport, adminCategoriesControllers.createCategory)              // ADMIN ACTION
+    .delete(passport, adminCategoriesControllers.deleteCategoriesTable)     // ADMIN ACTION
+
+// Get one category, edit category and delete one category
 router.route('/category/:id')
     .get(categoriesControllers.getCategoryById)
-    .put(passport, adminCategoriesControllers.editCategory) //admin action
-    .delete(passport, adminCategoriesControllers.deleteCategoryById) //admin action
-
-// ------------------- CATEGORIES (Admin actions) -------------------
-router.route('/categories')
-    .get(categoriesControllers.getAllCategories) //no admin action
-    .post(passport, adminCategoriesControllers.createCategory)
-    .delete(passport, adminCategoriesControllers.deleteCategoriesTable)
+    .put(passport, adminCategoriesControllers.editCategory)                 // ADMIN ACTION
+    .delete(passport, adminCategoriesControllers.deleteCategoryById)        // ADMIN ACTION
 
 // ------------------- TRANSACTIONS -------------------
+// Create transaction, get transactions by user and delete transactions table
 router.route('/transactions')
     .post(passport, transactionsControllers.createTransaction) //ok
     .get(passport, transactionsControllers.getUserTransactions) //ok
-    .delete(passport, adminTransactionsControllers.deleteTransactionsTable) //admin action
+    .delete(passport, adminTransactionsControllers.deleteTransactionsTable) // ADMIN ACTION
 
+// Get one transaction, edit one transaction and delete one transaction
 router.route('/transaction/:id')
     .get(passport, transactionsControllers.getTransaction) //ok
     .put(passport, transactionsControllers.editTransaction)
@@ -60,8 +62,6 @@ router.route('/transactions/:query')
 
 router.route('/transactions/cat/:type')
     .get(transactionsControllers.getTransactionsPerType)
-
-
 
 router.route('/resume')
     .get(transactionsControllers.getResume)
