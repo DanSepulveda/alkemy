@@ -21,6 +21,7 @@ router.route('/user/:id')
 // ------------------- ADMIN USERS -------------------
 // Get all users and delete table
 router.route('/users')
+    .post(passport, userControllers.signup)
     .get(passport, adminUsersControllers.getAllUsers)
     .delete(passport, adminUsersControllers.deleteUsersTable)
 

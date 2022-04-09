@@ -11,13 +11,21 @@ const userControllers = {
         email = email.toLowerCase()
         username = username.toLowerCase()
 
+        // Checking if new user is admin
+        const admin = req.body.admin ? 1 : 0
+
         try {
             // Checking if email is registered
             const user = await pool.query(`SELECT email FROM users WHERE email = '${email}'`)
             if (user.length) throw new Error('Email already in use')
 
+            // Checking if new admin is being created by another admin
+            if (admin && !req.user[0].admin) {
+                throw new Error('Access denied')
+            }
+
             // Creating new user in database
-            const newUser = await pool.query(`INSERT INTO users VALUES (NULL, '${username}', '${email}', '${hashedPass}', false)`)
+            const newUser = await pool.query(`INSERT INTO users VALUES (NULL, '${username}', '${email}', '${hashedPass}', '${admin}')`)
             const id = newUser.insertId
 
             // Generating token for new user
