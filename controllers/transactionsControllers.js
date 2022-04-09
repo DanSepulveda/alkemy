@@ -18,8 +18,7 @@ const budgetControllers = {
         const user_id = req.user[0].id
 
         try {
-            const transactions = await pool.query(`SELECT * FROM transactions WHERE user_id='${user_id}'`)
-            // const transactions = await pool.query(`SELECT * FROM transactions INNER JOIN categories WHERE user_id='${user_id}'`)
+            const transactions = await pool.query(`SELECT * FROM transactions INNER JOIN categories ON transactions.category_id = categories.id WHERE user_id='${user_id}' ORDER BY date DESC`)
             res.status(200).json({ success: true, response: transactions })
         } catch (error) {
             res.json({ success: false, error: error.message })
