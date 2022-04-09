@@ -20,6 +20,8 @@ const categoriesControllers = {
     editCategory: async (req, res) => {
         const values = Object.entries(req.body)
         let query = ''
+
+        // Creating query dynamically
         values.forEach((value, index) => {
             if (index === values.length - 1) {
                 query += `${value[0]}="${value[1]}"`
@@ -27,9 +29,14 @@ const categoriesControllers = {
                 query += `${value[0]}="${value[1]}", `
             }
         })
+
         try {
+            // Checking if category is being updated by admin user
             if (!req.user[0].admin) throw new Error('Access denied')
+
             const category = await pool.query(`UPDATE categories SET ${query} WHERE id=${req.params.id}`)
+
+            // Throwing error if category doesn't exist
             if (category.affectedRows === 0) throw new Error("Category doesn't exist")
             res.status(200).json({ success: true, response: 'Category modified successfully' })
         } catch (error) {

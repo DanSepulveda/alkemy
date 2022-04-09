@@ -28,21 +28,21 @@ router.route('/user/:id')
 // ------------------- USERS (Admin actions) -------------------
 // Get all users and delete table
 router.route('/users')
-    .post(passport, userControllers.signup)
+    .post(userControllers.signup)
     .get(passport, adminUsersControllers.getAllUsers)
     .delete(passport, adminUsersControllers.deleteUsersTable)
 
 // ------------------- CATEGORIES -------------------
 router.route('/category/:id')
     .get(categoriesControllers.getCategoryById)
+    .put(passport, adminCategoriesControllers.editCategory) //admin action
     .delete(passport, adminCategoriesControllers.deleteCategoryById) //admin action
 
 // ------------------- CATEGORIES (Admin actions) -------------------
 router.route('/categories')
-    .post(passport, adminCategoriesControllers.createCategory)
-    .put(passport, adminCategoriesControllers.editCategory)
-    .delete(passport, adminCategoriesControllers.deleteCategoriesTable)
     .get(categoriesControllers.getAllCategories) //no admin action
+    .post(passport, adminCategoriesControllers.createCategory)
+    .delete(passport, adminCategoriesControllers.deleteCategoriesTable)
 
 // ------------------- TRANSACTIONS -------------------
 router.route('/transactions')
