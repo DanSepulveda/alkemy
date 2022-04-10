@@ -38,7 +38,7 @@ const SignForm = ({ tag, setUser }) => {
                     ? 'Ingreso correcto'
                     : 'Cuenta creada correctamente'
 
-                message('success', text)
+                message('success', text, 'top')
                 localStorage.setItem('token', response.response.token)
                 setUser(response.response)
                 navigate('/')
