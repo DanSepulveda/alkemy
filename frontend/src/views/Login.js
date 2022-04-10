@@ -15,7 +15,7 @@ const Login = ({ tag, setUser }) => {
                 </h1>
                 <div className="form">
                     {tag === 'login'
-                        ? <LoginForm />
+                        ? <LoginForm setUser={setUser} />
                         : <SignupForm setUser={setUser} />
                     }
                 </div>

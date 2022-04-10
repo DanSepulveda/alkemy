@@ -9,7 +9,7 @@ const userActions = {
     },
     login: async (user) => {
         const response = await axios.post(`${HOST}/login`, user)
-        return response.data.response
+        return response.data
     },
     verifyToken: async (token) => {
         const response = await axios.get(`${HOST}/login`, {

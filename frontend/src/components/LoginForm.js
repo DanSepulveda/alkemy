@@ -1,8 +1,28 @@
+import { useNavigate } from 'react-router-dom'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import InputText from '../components/InputText'
+import InputText from './InputText'
+import message from '../utils/message'
+import userActions from '../utils/usersActions'
 
-const LoginForm = () => {
+const LoginForm = ({ setUser }) => {
+    const navigate = useNavigate()
+
+    const login = async (user) => {
+        try {
+            const response = await userActions.login(user)
+            if (response.success) {
+                message('success', 'Ingreso correcto')
+                setUser(response.response)
+                navigate('/')
+            } else {
+                message('error', response.error)
+            }
+        } catch (error) {
+            message('error', 'Ha ocurrido un error. Intente más tarde.')
+        }
+    }
+
     return (
         <Formik
             initialValues={{ email: '', password: '' }}
@@ -11,18 +31,10 @@ const LoginForm = () => {
                     .email('Formato de correo inválido')
                     .required('Campo requerido'),
                 password: Yup.string()
-                    .min(8, 'Contraseña demasiado corta')
+                    .min(5, 'Contraseña demasiado corta')
                     .required('Campo requerido')
             })}
-            onSubmit={async (values, { resetForm }) => {
-                try {
-                    // await login(values)
-                    // <Message icon='success' title='Ingreso correcto' position='top' />
-                    // navigate('/dashboard')
-                } catch (e) {
-                    // message('error', e.message)
-                }
-            }}
+            onSubmit={values => login(values)}
         >
             <Form className='flex-column'>
                 <InputText
