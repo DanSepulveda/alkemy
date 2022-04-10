@@ -1,6 +1,19 @@
 const Balance = ({ data }) => {
+    const formatter = new Intl.NumberFormat('es-CL', {
+        style: 'currency',
+        currency: 'CLP',
+    })
+
     return (
-        <h1>balance</h1>
+        <section className="card flex-cc">
+            <div className="flex-column-center">
+                <h2>
+                    <i class="fas fa-balance-scale"></i>
+                    Balance
+                </h2>
+                <span>{formatter.format(data.total_income - data.total_expenses)}</span>
+            </div>
+        </section>
     )
 }
 
