@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import SignForm from "../components/SignForm"
 
 const Login = ({ tag, setUser }) => {
@@ -6,8 +6,8 @@ const Login = ({ tag, setUser }) => {
         <section className='login-container flex-cc'>
             <div className='box flex-column'>
                 <div className='buttons flex-cc'>
-                    <Link to='/login' className={tag === 'login' ? 'active' : 'inactive'}>Ingresar</Link>
-                    <Link to='/signup' className={tag === 'login' ? 'inactive' : 'active'}>Crear cuenta</Link>
+                    <NavLink to='/login'>Ingresar</NavLink>
+                    <NavLink to='/signup'>Crear cuenta</NavLink>
                 </div>
                 <h1>
                     {tag === 'login' ? 'Ingresar a la cuenta' : 'Nuevo registro'}

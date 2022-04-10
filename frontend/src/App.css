@@ -143,14 +143,11 @@ div.buttons a {
     color: white;
     text-decoration: none;
     font-size: 18px;
-}
-
-a.active {
-    background-color: var(--green);
-}
-
-a.inactive {
     background-color: #1ab1864c;
+}
+
+div.buttons a.active {
+    background-color: var(--green);
 }
 
 /* FORM */
