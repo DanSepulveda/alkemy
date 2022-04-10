@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import SignForm from "../components/SignForm"
+import SignForm from '../components/SignForm'
 
 const Login = ({ tag, setUser }) => {
     return (
@@ -12,7 +12,7 @@ const Login = ({ tag, setUser }) => {
                 <h1>
                     {tag === 'login' ? 'Ingresar a la cuenta' : 'Nuevo registro'}
                 </h1>
-                <div className="form">
+                <div className='form'>
                     <SignForm tag={tag} setUser={setUser} />
                 </div>
             </div>

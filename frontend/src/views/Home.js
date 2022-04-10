@@ -1,6 +1,6 @@
-import Navbar from "../components/Navbar"
+import Navbar from '../components/Navbar'
 import Resume from '../components/Resume'
-import MainSection from "../components/MainSection"
+import MainSection from '../components/MainSection'
 
 const Home = ({ user, setUser }) => {
     return (

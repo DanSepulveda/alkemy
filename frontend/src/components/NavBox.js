@@ -1,6 +1,6 @@
-import Swal from "sweetalert2"
-import message from "../utils/message"
-import userActions from "../utils/usersActions"
+import Swal from 'sweetalert2'
+import message from '../utils/message'
+import userActions from '../utils/usersActions'
 
 const NavBox = ({ user, setUser }) => {
     const clearUser = () => {
@@ -10,7 +10,7 @@ const NavBox = ({ user, setUser }) => {
 
     const logout = () => {
         Swal.fire({
-            text: "¿Desea cerrar sesión?",
+            text: '¿Desea cerrar sesión?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -46,7 +46,7 @@ const NavBox = ({ user, setUser }) => {
     const confirmation = () => {
         Swal.fire({
             title: '¿Está seguro/a?',
-            text: "Se borrará su cuenta y todos sus datos. Esta acción no se puede revertir.",
+            text: 'Se borrará su cuenta y todos sus datos. Esta acción no se puede revertir.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -75,10 +75,10 @@ const NavBox = ({ user, setUser }) => {
     }
 
     return (
-        <div className="navbox flex-column">
-            <p className="email">{user.email}</p>
-            <p className="delete" onClick={confirmation}>Borrar cuenta</p>
-            <p className="close" onClick={logout}>Cerrar sesión</p>
+        <div className='navbox flex-column'>
+            <p className='email'>{user.email}</p>
+            <p className='delete' onClick={confirmation}>Borrar cuenta</p>
+            <p className='close' onClick={logout}>Cerrar sesión</p>
         </div>
     )
 }

@@ -9,32 +9,32 @@ const Row = ({ transaction }) => {
     })
 
     return (
-        <div className="row">
-            <div className="flex-column-center" style={{ width: '15%' }}>
-                <span className="title">Fecha</span>
+        <div className='row'>
+            <div className='flex-column-center' style={{ width: '15%' }}>
+                <span className='title'>Fecha</span>
                 <span>{(new Date(date)).toLocaleDateString()}</span>
             </div>
-            <div className="flex-column-center" style={{ width: '5%' }}>
-                <span className="title">Tipo</span>
+            <div className='flex-column-center' style={{ width: '5%' }}>
+                <span className='title'>Tipo</span>
                 <span><i className={`fas fa-arrow-${icon}`}></i></span>
             </div>
-            <div className="flex-column-center" style={{ width: '10%' }}>
-                <span className="title">Categoría</span>
+            <div className='flex-column-center' style={{ width: '10%' }}>
+                <span className='title'>Categoría</span>
                 <span><i className={`fas fa-${image}`}></i></span>
             </div>
-            <div className="flex-column" style={{ width: '50%' }}>
-                <span className="title">Descripción</span>
+            <div className='flex-column' style={{ width: '50%' }}>
+                <span className='title'>Descripción</span>
                 <span>{description}</span>
             </div>
-            <div className="flex-column-center" style={{ width: '10%' }}>
-                <span className="title">Monto</span>
+            <div className='flex-column-center' style={{ width: '10%' }}>
+                <span className='title'>Monto</span>
                 <span>{formatter.format(amount)}</span>
             </div>
-            <div className="flex-column-center" style={{ width: '10%' }}>
-                <span className="title">Acciones</span>
+            <div className='flex-column-center' style={{ width: '10%' }}>
+                <span className='title'>Acciones</span>
                 <div>
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-alt"></i>
+                    <i class='fas fa-edit'></i>
+                    <i class='fas fa-trash-alt'></i>
                 </div>
             </div>
         </div>
