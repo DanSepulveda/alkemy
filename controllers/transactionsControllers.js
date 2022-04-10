@@ -83,6 +83,9 @@ const budgetControllers = {
         try {
             const transaction = await pool.query(`SELECT * from transactions WHERE id=${req.params.id}`)
 
+            // Error if transaction doesn't exist
+            if (!transaction.length) throw new Error("Access denied")
+
             // Checking if transaction belongs to user
             if (user_id != transaction[0].user_id) throw new Error('Access denied')
 
