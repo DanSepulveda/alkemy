@@ -32,7 +32,6 @@ const NavBox = ({ user, setUser }) => {
     const deleteAccount = async (password) => {
         try {
             const response = await userActions.deleteAccout(user.id, user.token, password)
-            console.log(response)
             if (response.success) {
                 clearUser()
                 message('success', 'Cuenta borrada exitosamente')
@@ -40,7 +39,7 @@ const NavBox = ({ user, setUser }) => {
                 message('error', response.error)
             }
         } catch (error) {
-            message('error', 'Ha ocurrido un problema. Intente más tarde')
+            message('error', 'Ha ocurrido un problema. Intente más tarde.')
         }
     }
 
@@ -68,7 +67,6 @@ const NavBox = ({ user, setUser }) => {
                         autocorrect: 'off'
                     }
                 })
-
                 if (password) {
                     deleteAccount(password)
                 }

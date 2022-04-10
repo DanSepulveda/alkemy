@@ -62,12 +62,13 @@ header p {
     width: 100%;
     text-align: center;
     cursor: pointer;
-    color: #555;
+    color: #444;
 }
 
 p.email {
     padding-top: 0;
     cursor: initial;
+    color: #666;
 }
 
 p.delete {
