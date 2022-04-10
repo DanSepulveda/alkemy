@@ -5,6 +5,15 @@
     --green: #1AB187;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu&display=swap');
+
+html * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
 section {
     min-height: 100vh;
 }
@@ -16,17 +25,31 @@ section {
     align-items: center;
 }
 
-/* SIGNUP/LOGIN FORM */
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* SIGNUP/LOGIN VIEW */
 section.login-container {
     background-color: var(--main);
 }
 
 div.box {
     padding: 1.5em;
-    height: 80vh;
+    min-height: 70vh;
     min-width: 30vw;
     border-radius: 4px;
     background-color: var(--secondary);
+}
+
+div.box h1 {
+    text-align: center;
+    margin: 1em 0;
+    font-size: 35px;
+    flex: 1;
+    color: rgb(30, 30, 30);
+    color: #eee;
 }
 
 div.buttons {
@@ -50,6 +73,49 @@ a.active {
 
 a.inactive {
     background-color: #1ab1864c;
+}
+
+/* FORM */
+div.form button {
+    background-color: var(--green);
+    width: 100%;
+    padding: .7em 0;
+    font-size: 21px;
+    color: white;
+    border: none;
+}
+
+/* INPUT COMPONENT */
+div.input {
+    width: 100%;
+}
+
+div.input input {
+    width: 100%;
+    background-color: transparent;
+    color: whitesmoke;
+    border: 2px solid #ccc;
+    padding: .8em 2em;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+div.input input::placeholder {
+    color: #ccc;
+}
+
+div.input input:focus {
+    border: 2px solid whitesmoke;
+    outline: none;
+}
+
+div.input div {
+    min-height: 25px;
+    margin-bottom: 2em;
+}
+
+div.input span {
+    color: #1ab186bb;
 }
 
 /* MEDIA QUERIES */
