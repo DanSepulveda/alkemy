@@ -63,7 +63,7 @@ const userControllers = {
     },
     deleteAccount: async (req, res) => {
         const userPassword = req.body.password
-        const { id } = req.headers
+        const { id } = req.params
         const { password } = req.user[0]
 
         try {

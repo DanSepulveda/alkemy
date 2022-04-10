@@ -1,6 +1,10 @@
-const Home = () => {
+import Navbar from "../components/Navbar"
+
+const Home = ({ user, setUser }) => {
     return (
-        <h1>Home</h1>
+        <section className="main">
+            <Navbar user={user} setUser={setUser} />
+        </section>
     )
 }
 

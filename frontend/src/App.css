@@ -30,6 +30,64 @@ section {
     flex-direction: column;
 }
 
+/* NAVBAR */
+header {
+    background-color: var(--main);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2em;
+    height: 8vh;
+}
+
+header i {
+    color: #ccc;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+div.navbox {
+    background-color: #ccc;
+    position: absolute;
+    top: 8.5vh;
+    right: 2em;
+    align-items: center;
+    padding: 1em;
+    border-radius: 5px;
+}
+
+header p {
+    padding: .8em .5em;
+    border-bottom: 1px solid #444;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    color: #555;
+}
+
+p.email {
+    padding-top: 0;
+    cursor: initial;
+}
+
+p.delete {
+    font-size: 14px;
+    color: red;
+}
+
+p.close {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+p.close:hover {
+    color: #333;
+}
+
+.main {
+    background-color: var(--secondary);
+}
+
 /* SIGNUP/LOGIN VIEW */
 section.login-container {
     background-color: var(--main);

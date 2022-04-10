@@ -23,7 +23,7 @@ router.route('/login')
 
 // Delete account
 router.route('/user/:id')
-    .delete(passport, userControllers.deleteAccount)
+    .post(passport, userControllers.deleteAccount)
 
 // Get all users, delete users table and create new admin
 router.route('/users')

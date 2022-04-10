@@ -18,6 +18,14 @@ const userActions = {
             }
         })
         return response.data
+    },
+    deleteAccout: async (id, token, password) => {
+        const response = await axios.post(`${HOST}/user/${id}`, { password }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
     }
 }
 
