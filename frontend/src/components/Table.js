@@ -1,6 +1,12 @@
+import Row from './Row'
+
 const Table = ({ transactions }) => {
     return (
-        <h1>table</h1>
+        <section className='flex-column'>
+            {transactions.map(transaction =>
+                <Row transaction={transaction} key={transaction.id} />
+            )}
+        </section>
     )
 }
 
