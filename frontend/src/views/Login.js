@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
-import LoginForm from "../components/LoginForm"
-import SignupForm from "../components/SignupForm"
+import SignForm from "../components/SignForm"
 
 const Login = ({ tag, setUser }) => {
     return (
@@ -14,10 +13,7 @@ const Login = ({ tag, setUser }) => {
                     {tag === 'login' ? 'Ingresar a la cuenta' : 'Nuevo registro'}
                 </h1>
                 <div className="form">
-                    {tag === 'login'
-                        ? <LoginForm setUser={setUser} />
-                        : <SignupForm setUser={setUser} />
-                    }
+                    <SignForm tag={tag} setUser={setUser} />
                 </div>
             </div>
         </section>
