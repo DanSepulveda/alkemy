@@ -1,8 +1,26 @@
 import { Formik, Form } from 'formik'
+import { useEffect } from 'react'
 import * as Yup from 'yup'
 import InputText from '../components/InputText'
+import userActions from '../utils/usersActions'
+import { useNavigate } from 'react-router-dom'
 
 const SignupForm = () => {
+    const navigate = useNavigate()
+
+    const createUser = async (user) => {
+        try {
+            const response = await userActions.signup(user)
+            if (response.success) {
+                navigate('/')
+            } else {
+                alert(response.error)
+            }
+        } catch (error) {
+            alert('ha ocurrido un problema')
+        }
+    }
+
     return (
         <Formik
             initialValues={{ email: '', password: '' }}
@@ -18,14 +36,7 @@ const SignupForm = () => {
                     .required('Campo requerido')
             })}
             onSubmit={async (values, { resetForm }) => {
-                console.log(values)
-                try {
-                    // await login(values)
-                    // <Message icon='success' title='Ingreso correcto' position='top' />
-                    // navigate('/dashboard')
-                } catch (e) {
-                    // message('error', e.message)
-                }
+                createUser(values)
             }}
         >
             <Form className='flex-column'>
