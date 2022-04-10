@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-const Message = ({ icon, title, position = 'top-end' }) => {
+const message = (icon, title, position = 'top-end') => {
     const Toast = Swal.mixin({
         toast: true,
         position: position,
@@ -21,4 +21,4 @@ const Message = ({ icon, title, position = 'top-end' }) => {
     )
 }
 
-export default Message
+export default message

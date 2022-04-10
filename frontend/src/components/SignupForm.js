@@ -1,9 +1,9 @@
-import { Formik, Form } from 'formik'
-import { useEffect } from 'react'
-import * as Yup from 'yup'
-import InputText from '../components/InputText'
-import userActions from '../utils/usersActions'
 import { useNavigate } from 'react-router-dom'
+import { Formik, Form } from 'formik'
+import * as Yup from 'yup'
+import InputText from './InputText'
+import message from '../utils/message'
+import userActions from '../utils/usersActions'
 
 const SignupForm = () => {
     const navigate = useNavigate()
@@ -17,7 +17,7 @@ const SignupForm = () => {
                 alert(response.error)
             }
         } catch (error) {
-            alert('ha ocurrido un problema')
+            message('error', 'Ha ocurrido un error. Intente más tarde.')
         }
     }
 
