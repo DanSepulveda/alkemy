@@ -17,7 +17,7 @@ const userActions = {
                 Authorization: `Bearer ${token}`
             }
         })
-        return response.data.response
+        return response.data
     }
 }
 

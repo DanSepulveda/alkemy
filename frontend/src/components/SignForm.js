@@ -39,6 +39,7 @@ const SignForm = ({ tag, setUser }) => {
                     : 'Cuenta creada correctamente'
 
                 message('success', text)
+                localStorage.setItem('token', response.response.token)
                 setUser(response.response)
                 navigate('/')
             } else {

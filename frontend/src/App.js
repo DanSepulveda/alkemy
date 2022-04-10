@@ -1,7 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Login from './views/Login'
 import Home from './views/Home'
+import userActions from './utils/usersActions'
 
 const App = () => {
   const [user, setUser] = useState({
@@ -11,16 +12,26 @@ const App = () => {
     token: null
   })
 
+  const tokenLogin = async (token) => {
+    const response = await userActions.verifyToken(token)
+    if (response.success) {
+      response.response.token = token
+      setUser(response.response)
+    }
+  }
+
   useEffect(() => {
-    console.log(user)
-  }, [user])
+    const token = localStorage.getItem('token')
+    if (token) tokenLogin(token)
+  }, [])
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login tag='login' setUser={setUser} />} />
-        <Route path='/signup' element={<Login tag='sign' setUser={setUser} />} />
+        {!user.token && <Route path='/login' element={<Login tag='login' setUser={setUser} />} />}
+        {!user.token && <Route path='/signup' element={<Login tag='sign' setUser={setUser} />} />}
+        <Route path='*' element={<Navigate to={user.token ? '/' : "/login"} />} />
       </Routes>
     </BrowserRouter>
   )
