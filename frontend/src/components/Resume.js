@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import message from '../utils/message'
-import transactionsActions from '../utils/transactionsActions'
+import Table from './Table'
 import Loader from './Loader'
+import Balance from './Balance'
+import transactionsActions from '../utils/transactionsActions'
 
 const Resume = ({ user }) => {
     const [data, setData] = useState({})
@@ -12,7 +14,7 @@ const Resume = ({ user }) => {
             const response = await transactionsActions.getResume(user.token)
             if (response.success) {
                 setData(response.response)
-                // setLoading(false)
+                setLoading(false)
             } else {
                 throw new Error
             }
@@ -31,7 +33,8 @@ const Resume = ({ user }) => {
 
     return (
         <section>
-            {console.log(data)}
+            <Balance data={data.resume[0]} />
+            <Table transactions={data.top10} />
         </section>
     )
 }
