@@ -121,11 +121,13 @@ const budgetControllers = {
         }
     },
     getResume: async (req, res) => {
+        const { id } = req.user[0]
         try {
-            const expenses = await pool.query('SELECT SUM(amount) AS sum, COUNT(amount) AS count FROM transactions WHERE type="expenses"')
-            const incomes = await pool.query('SELECT SUM(amount) AS sum, COUNT(amount) AS count FROM transactions WHERE type="incomes"')
-            const resume = incomes[0].sum - expenses[0].sum
-            res.status(200).json({ success: true, response: { expenses: expenses[0], incomes: incomes[0], resume } })
+            const resume = await pool.query(`SELECT SUM(CASE WHEN type="expense" THEN amount END) total_income, SUM(CASE WHEN type="income" THEN amount END) total_expenses FROM transactions WHERE user_id='${id}'`)
+
+            const top10 = await pool.query(`SELECT * FROM transactions WHERE user_id='${id}' ORDER BY date DESC LIMIT 10`)
+
+            res.status(200).json({ success: true, response: { resume, top10 } })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }

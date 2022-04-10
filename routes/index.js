@@ -64,6 +64,6 @@ router.route('/transactions/cat/:type')
     .get(transactionsControllers.getTransactionsPerType)
 
 router.route('/resume')
-    .get(transactionsControllers.getResume)
+    .get(passport, transactionsControllers.getResume)
 
 module.exports = router
