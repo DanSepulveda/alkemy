@@ -48,12 +48,12 @@ router.route('/category/:id')
 // Create transaction, get transactions by user and delete transactions table
 router.route('/transactions')
     .post(passport, transactionsControllers.createTransaction)
-    .get(passport, transactionsControllers.getUserTransactions)
+    .get(passport, transactionsControllers.getAllTransactionsByUser)
     .delete(passport, adminTransactionsControllers.deleteTransactionsTable) // ADMIN ACTION
 
 // Get one transaction, edit one transaction and delete one transaction
 router.route('/transaction/:id')
-    .get(passport, transactionsControllers.getTransaction)
+    .get(passport, transactionsControllers.getOneTransaction)
     .put(passport, transactionsControllers.editTransaction)
     .delete(passport, transactionsControllers.deleteTransaction)
 

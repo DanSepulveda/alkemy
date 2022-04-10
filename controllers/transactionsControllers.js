@@ -7,14 +7,14 @@ const budgetControllers = {
 
         try {
             // Saving transaction
-            const transaction = await pool.query(`INSERT INTO transactions VALUES (NULL, '${description}', '${type}', '${amount}', STR_TO_DATE('${date}', '%d-%m-%y'), '${category_id}', '${user_id}')`)
+            const transaction = await pool.query(`INSERT INTO transactions VALUES (NULL, '${description}', '${type}', '${amount}', STR_TO_DATE('${date}', '%d-%m-%Y'), '${category_id}', '${user_id}')`)
 
             res.status(200).json({ success: true, response: transaction.insertId })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }
     },
-    getUserTransactions: async (req, res) => {
+    getAllTransactionsByUser: async (req, res) => {
         const user_id = req.user[0].id
 
         try {
@@ -25,7 +25,7 @@ const budgetControllers = {
             res.json({ success: false, error: error.message })
         }
     },
-    getTransaction: async (req, res) => {
+    getOneTransaction: async (req, res) => {
         const user_id = req.user[0].id
 
         try {
@@ -60,15 +60,20 @@ const budgetControllers = {
                 // Throwing error if user is trying to edit owner of transaction
                 if (value[0] === 'user_id') throw new Error("Editing user is not allowed")
 
+                // Conditional to format date
+                const data = value[0] === 'date'
+                    ? `STR_TO_DATE('${value[1]}', '%d-%m-%Y')`
+                    : `'${value[1]}'`
+
                 if (index === values.length - 1) {
-                    query += `${value[0]}="${value[1]}"`
+                    query += `${value[0]}=${data}`
                 } else {
-                    query += `${value[0]}="${value[1]}", `
+                    query += `${value[0]}=${data}, `
                 }
             })
 
             await pool.query(`UPDATE transactions SET ${query} WHERE id=${req.params.id}`)
-            res.status(200).json({ success: true })
+            res.status(200).json({ success: true, response: 'Transaction edited successfully' })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }
