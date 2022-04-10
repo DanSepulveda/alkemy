@@ -1,6 +1,10 @@
+import Input from "../components/Input"
+
 const Login = () => {
     return (
-        <h1>Login</h1>
+        <div>
+            <h1>Login</h1>
+        </div>
     )
 }
 
