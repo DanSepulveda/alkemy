@@ -47,15 +47,15 @@ router.route('/category/:id')
 // ------------------- TRANSACTIONS -------------------
 // Create transaction, get transactions by user and delete transactions table
 router.route('/transactions')
-    .post(passport, transactionsControllers.createTransaction) //ok
-    .get(passport, transactionsControllers.getUserTransactions) //ok
+    .post(passport, transactionsControllers.createTransaction)
+    .get(passport, transactionsControllers.getUserTransactions)
     .delete(passport, adminTransactionsControllers.deleteTransactionsTable) // ADMIN ACTION
 
 // Get one transaction, edit one transaction and delete one transaction
 router.route('/transaction/:id')
     .get(passport, transactionsControllers.getTransaction) //ok
     .put(passport, transactionsControllers.editTransaction)
-    .delete(passport, transactionsControllers.deleteTransaction)
+    .delete(passport, transactionsControllers.deleteTransaction) //ok
 
 router.route('/transactions/:query')
     .get(transactionsControllers.getTransactions)

@@ -18,7 +18,8 @@ const budgetControllers = {
         const user_id = req.user[0].id
 
         try {
-            const transactions = await pool.query(`SELECT * FROM transactions INNER JOIN categories ON transactions.category_id = categories.id WHERE user_id='${user_id}' ORDER BY date DESC`)
+            const transactions = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id, categories.name, categories.image FROM transactions LEFT JOIN categories ON transactions.category_id=categories.id WHERE user_id='${user_id}' ORDER BY date DESC`)
+
             res.status(200).json({ success: true, response: transactions })
         } catch (error) {
             res.json({ success: false, error: error.message })
@@ -26,8 +27,12 @@ const budgetControllers = {
     },
     getTransaction: async (req, res) => {
         const user_id = req.user[0].id
+
         try {
-            const transaction = await pool.query(`SELECT * from transactions WHERE id=${req.params.id}`)
+            const transaction = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id, transactions.user_id, categories.name, categories.image FROM transactions LEFT JOIN categories ON transactions.category_id=categories.id WHERE transactions.id=${req.params.id}`)
+
+            // Checking if there is a transaction with the consulted id
+            if (!transaction.length) throw new Error("Transaction doesn't exist")
 
             // Checking if transaction belongs to user
             if (user_id != transaction[0].user_id) throw new Error('Access denied')
@@ -60,7 +65,7 @@ const budgetControllers = {
             const transaction = await pool.query(`SELECT * from transactions WHERE id=${req.params.id}`)
 
             // Checking if transaction belongs to user
-            if (user_id !== transaction.user_id) throw new Error('Access denied')
+            if (user_id != transaction[0].user_id) throw new Error('Access denied')
 
             await pool.query(`DELETE FROM transactions WHERE id='${req.params.id}'`)
             res.status(200).json({ success: true, response: 'Transaction deleted successfully' })
