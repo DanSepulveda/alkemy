@@ -1,0 +1,80 @@
+/* GENERAL STYLES */
+:root {
+    --main: #252F3A;
+    --secondary: #435258;
+    --green: #1AB187;
+}
+
+section {
+    min-height: 100vh;
+}
+
+/* GENERAL CLASSES */
+.flex-cc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* SIGNUP/LOGIN FORM */
+section.login-container {
+    background-color: var(--main);
+}
+
+div.box {
+    padding: 1.5em;
+    height: 80vh;
+    min-width: 30vw;
+    border-radius: 4px;
+    background-color: var(--secondary);
+}
+
+div.buttons {
+    width: 100%;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+div.buttons a {
+    width: 50%;
+    padding: .7em 0;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+a.active {
+    background-color: var(--green);
+}
+
+a.inactive {
+    background-color: #1ab1864c;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1400px) {}
+
+@media (max-width: 1200px) {
+    div.box {
+        width: 35vw;
+    }
+}
+
+@media (max-width: 992px) {
+    div.box {
+        width: 40vw;
+    }
+}
+
+@media (max-width: 768px) {
+    div.box {
+        width: 55vw;
+    }
+}
+
+@media (max-width: 576px) {
+    div.box {
+        width: 80vw;
+    }
+}
