@@ -38,6 +38,7 @@ header {
     align-items: center;
     padding: 0 2em;
     height: 8vh;
+    color: #ccc;
 }
 
 header i {
@@ -46,6 +47,24 @@ header i {
     cursor: pointer;
 }
 
+header a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1em;
+    color: #ccc;
+}
+
+nav a.active {
+    color: white;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+header span.greeting {
+    margin-right: 1em;
+}
+
+/* NAVBOX */
 div.navbox {
     background-color: #ccc;
     position: absolute;
