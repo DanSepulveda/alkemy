@@ -18,6 +18,7 @@ const SignupForm = () => {
                     .required('Campo requerido')
             })}
             onSubmit={async (values, { resetForm }) => {
+                console.log(values)
                 try {
                     // await login(values)
                     // <Message icon='success' title='Ingreso correcto' position='top' />
@@ -45,7 +46,7 @@ const SignupForm = () => {
                     type='password'
                 />
                 <button type='submit' id='send'>
-                    Ingresar
+                    Crear
                 </button>
             </Form>
         </Formik>

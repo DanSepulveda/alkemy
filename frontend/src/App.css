@@ -37,7 +37,7 @@ section.login-container {
 
 div.box {
     padding: 1.5em;
-    min-height: 70vh;
+    min-height: 75vh;
     min-width: 30vw;
     border-radius: 4px;
     background-color: var(--secondary);
@@ -111,7 +111,7 @@ div.input input:focus {
 
 div.input div {
     min-height: 25px;
-    margin-bottom: 2em;
+    margin-bottom: .5em;
 }
 
 div.input span {
