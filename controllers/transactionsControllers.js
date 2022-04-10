@@ -43,16 +43,30 @@ const budgetControllers = {
         }
     },
     editTransaction: async (req, res) => {
+        const user_id = req.user[0].id
         const values = Object.entries(req.body)
         let query = ''
-        values.forEach((value, index) => {
-            if (index === values.length - 1) {
-                query += `${value[0]}="${value[1]}"`
-            } else {
-                query += `${value[0]}="${value[1]}", `
-            }
-        })
+
         try {
+            // Throwing error if transaction doesn't belong to user
+            const transaction = await pool.query(`SELECT * FROM transactions WHERE id=${req.params.id}`)
+            if (user_id !== transaction[0].user_id) throw new Error('Access denied')
+
+            // Creating query dynamically
+            values.forEach((value, index) => {
+                // Throwing error if user is trying to edit type of transaction
+                if (value[0] === 'type') throw new Error("Editing type is not allowed")
+
+                // Throwing error if user is trying to edit owner of transaction
+                if (value[0] === 'user_id') throw new Error("Editing user is not allowed")
+
+                if (index === values.length - 1) {
+                    query += `${value[0]}="${value[1]}"`
+                } else {
+                    query += `${value[0]}="${value[1]}", `
+                }
+            })
+
             await pool.query(`UPDATE transactions SET ${query} WHERE id=${req.params.id}`)
             res.status(200).json({ success: true })
         } catch (error) {

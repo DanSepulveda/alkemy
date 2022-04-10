@@ -53,9 +53,9 @@ router.route('/transactions')
 
 // Get one transaction, edit one transaction and delete one transaction
 router.route('/transaction/:id')
-    .get(passport, transactionsControllers.getTransaction) //ok
+    .get(passport, transactionsControllers.getTransaction)
     .put(passport, transactionsControllers.editTransaction)
-    .delete(passport, transactionsControllers.deleteTransaction) //ok
+    .delete(passport, transactionsControllers.deleteTransaction)
 
 router.route('/transactions/:query')
     .get(transactionsControllers.getTransactions)
