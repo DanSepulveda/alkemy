@@ -1,8 +1,9 @@
 import Row from './Row'
 
-const Table = ({ transactions }) => {
+const Table = ({ transactions, title }) => {
     return (
-        <section className='flex-column'>
+        <section className='flex-column table'>
+            <h1>{title}</h1>
             {transactions.map(transaction =>
                 <Row transaction={transaction} key={transaction.id} />
             )}

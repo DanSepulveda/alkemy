@@ -8,7 +8,7 @@ const Balance = ({ data }) => {
         <section className="card flex-cc">
             <div className="flex-column-center">
                 <h2>
-                    <i class="fas fa-balance-scale"></i>
+                    <i className="fas fa-balance-scale"></i>
                     Balance
                 </h2>
                 <span>{formatter.format(data.total_income - data.total_expenses)}</span>

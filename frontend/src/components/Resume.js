@@ -34,7 +34,7 @@ const Resume = ({ user }) => {
     return (
         <section>
             <Balance data={data.resume[0]} />
-            <Table transactions={data.top10} />
+            <Table transactions={data.top10} title={`Últimos ${data.top10.length} registros`} />
         </section>
     )
 }
