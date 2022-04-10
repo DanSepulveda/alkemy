@@ -1,9 +1,16 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Login from './views/Login'
+import Home from './views/Home'
+
 const App = () => {
   return (
-    <div>
-      <h1>App</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   )
-};
+}
 
 export default App
