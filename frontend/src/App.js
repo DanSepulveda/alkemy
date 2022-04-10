@@ -28,7 +28,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />} />
+        {user.token && <Route path='/' element={<Home />} />}
         {!user.token && <Route path='/login' element={<Login tag='login' setUser={setUser} />} />}
         {!user.token && <Route path='/signup' element={<Login tag='sign' setUser={setUser} />} />}
         <Route path='*' element={<Navigate to={user.token ? '/' : "/login"} />} />
