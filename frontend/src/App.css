@@ -193,6 +193,103 @@ div.input span {
     color: #1ab186bb;
 }
 
+/* LOADER */
+.loader {
+    justify-content: center;
+    align-items: center;
+}
+
+.loader h1 {
+    font-size: 30px;
+    color: #ccc;
+}
+
+.dots {
+    gap: 20px;
+    margin-top: 1em;
+}
+
+.dots div {
+    width: 13px;
+    height: 13px;
+    border-radius: 100%;
+    background-color: #ccc;
+    animation-duration: 1000ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.dot1 {
+    animation-name: dot1;
+}
+
+.dot2 {
+    animation-name: dot2;
+}
+
+.dot3 {
+    animation-name: dot3;
+}
+
+.dot4 {
+    animation-name: dot4;
+}
+
+.dot5 {
+    animation-name: dot5;
+}
+
+@keyframes dot1 {
+    0% {
+        background-color: var(--main);
+    }
+
+    20% {
+        background-color: #ccc;
+    }
+}
+
+@keyframes dot2 {
+    20% {
+        background-color: var(--main);
+    }
+
+    40% {
+        background-color: #ccc;
+    }
+}
+
+@keyframes dot3 {
+    40% {
+        background-color: var(--main);
+    }
+
+    60% {
+        background-color: #ccc;
+    }
+}
+
+@keyframes dot4 {
+    60% {
+        background-color: var(--main);
+    }
+
+    80% {
+        background-color: #ccc;
+    }
+}
+
+@keyframes dot5 {
+    80% {
+        background-color: var(--main);
+    }
+
+    100% {
+        background-color: #ccc;
+    }
+}
+
+
 /* MEDIA QUERIES */
 @media (max-width: 1400px) {}
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import message from '../utils/message'
 import transactionsActions from '../utils/transactionsActions'
+import Loader from './Loader'
 
 const Resume = ({ user }) => {
     const [data, setData] = useState({})
@@ -11,6 +12,7 @@ const Resume = ({ user }) => {
             const response = await transactionsActions.getResume(user.token)
             if (response.success) {
                 setData(response.response)
+                // setLoading(false)
             } else {
                 throw new Error
             }
@@ -22,6 +24,10 @@ const Resume = ({ user }) => {
     useEffect(() => {
         getResume()
     }, [])
+
+    if (loading) {
+        return <Loader />
+    }
 
     return (
         <section>
