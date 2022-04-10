@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import LoginForm from "../components/LoginForm"
 import SignupForm from "../components/SignupForm"
 
-const Login = ({ tag }) => {
+const Login = ({ tag, setUser }) => {
     return (
         <section className='login-container flex-cc'>
             <div className='box flex-column'>
@@ -16,7 +16,7 @@ const Login = ({ tag }) => {
                 <div className="form">
                     {tag === 'login'
                         ? <LoginForm />
-                        : <SignupForm />
+                        : <SignupForm setUser={setUser} />
                     }
                 </div>
             </div>

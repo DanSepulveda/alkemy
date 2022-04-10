@@ -5,16 +5,18 @@ import InputText from './InputText'
 import message from '../utils/message'
 import userActions from '../utils/usersActions'
 
-const SignupForm = () => {
+const SignupForm = ({ setUser }) => {
     const navigate = useNavigate()
 
     const createUser = async (user) => {
         try {
             const response = await userActions.signup(user)
             if (response.success) {
+                message('success', 'Cuenta creada correctamente')
+                setUser(response.response)
                 navigate('/')
             } else {
-                alert(response.error)
+                message('error', response.error)
             }
         } catch (error) {
             message('error', 'Ha ocurrido un error. Intente más tarde.')
@@ -23,7 +25,7 @@ const SignupForm = () => {
 
     return (
         <Formik
-            initialValues={{ email: '', password: '' }}
+            initialValues={{ username: '', email: '', password: '' }}
             validationSchema={Yup.object({
                 username: Yup.string()
                     .min(4, 'Nombre de usuario demasiado corto')
@@ -35,9 +37,7 @@ const SignupForm = () => {
                     .min(8, 'Contraseña demasiado corta')
                     .required('Campo requerido')
             })}
-            onSubmit={async (values, { resetForm }) => {
-                createUser(values)
-            }}
+            onSubmit={values => createUser(values)}
         >
             <Form className='flex-column'>
                 <InputText
