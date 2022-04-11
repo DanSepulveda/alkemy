@@ -16,13 +16,18 @@ const transactionsActions = {
             return response.data
         }
     },
-    deleteTransaction: async (id, token) => {
-        const response = await axios.delete(`${HOST}/transaction/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
+    deleteTransaction: (id, token) => {
+        return async (dispatch) => {
+            const response = await axios.delete(`${HOST}/transaction/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (response.data.success) {
+                dispatch({ type: 'DELETE', payload: id })
             }
-        })
-        return response.data
+            return response.data
+        }
     }
 }
 

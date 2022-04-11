@@ -6,15 +6,13 @@ import Balance from './Balance'
 import transactionsActions from '../redux/actions/transactionsActions'
 import { connect } from 'react-redux'
 
-const Resume = ({ token, getResume }) => {
-    const [data, setData] = useState({})
+const Resume = ({ token, getResume, top10 }) => {
     const [loading, setLoading] = useState(true)
 
     const fetchData = async () => {
         try {
             const response = await getResume(token)
             if (response.success) {
-                setData(response.response)
                 setLoading(false)
             } else {
                 throw new Error
@@ -36,9 +34,8 @@ const Resume = ({ token, getResume }) => {
         <section>
             <Balance />
             <Table
-                transactions={data.top10}
-                title={`Últimos ${data.top10.length} registros`}
-                setData={setData}
+                transactions={top10}
+                title={`Últimos ${top10.length} registros`}
             />
         </section>
     )
@@ -46,7 +43,8 @@ const Resume = ({ token, getResume }) => {
 
 const mapStateToProps = state => {
     return {
-        token: state.users.token
+        token: state.users.token,
+        top10: state.transactions.top10
     }
 }
 

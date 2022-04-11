@@ -10,6 +10,13 @@ const transactionsReducer = (state = initialState, action) => {
                 balance: action.payload.resume[0],
                 top10: action.payload.top10
             }
+        case 'DELETE':
+            console.log('reducer')
+            console.log(action.payload)
+            return {
+                ...state,
+                top10: state.top10.filter(transaction => transaction.id !== action.payload)
+            }
         default:
             return {
                 ...state

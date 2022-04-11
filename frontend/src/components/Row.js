@@ -1,20 +1,17 @@
 import message from '../utils/message'
-import transactionsActions from '../redux/actions/transactionsActions'
 import Swal from 'sweetalert2'
+import formatter from '../utils/formatMoney'
+import transactionsActions from '../redux/actions/transactionsActions'
+import { connect } from 'react-redux'
 
-const Row = ({ transaction, setData, token }) => {
+const Row = ({ transaction, deleteTransaction, token }) => {
     const { id, date, type, name, image, description, amount } = transaction
 
     const icon = type === 'expense' ? 'down' : 'up'
 
-    const formatter = new Intl.NumberFormat('es-CL', {
-        style: 'currency',
-        currency: 'CLP',
-    })
-
-    const deleteTransaction = async () => {
+    const deleteRow = async () => {
         try {
-            const response = await transactionsActions.deleteTransaction(id, token)
+            const response = await deleteTransaction(id, token)
             if (response.success) {
                 message('success', 'Registro borrado correctamente')
             } else {
@@ -36,7 +33,7 @@ const Row = ({ transaction, setData, token }) => {
             cancelButtonText: 'Cancelar'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await deleteTransaction()
+                await deleteRow()
             }
         })
     }
@@ -86,4 +83,14 @@ const Row = ({ transaction, setData, token }) => {
     )
 }
 
-export default Row
+const mapStateToProps = state => {
+    return {
+        token: state.users.token
+    }
+}
+
+const mapDispatchToProps = {
+    deleteTransaction: transactionsActions.deleteTransaction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Row)
