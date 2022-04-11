@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import SignForm from '../components/SignForm'
 
-const Login = ({ tag, setUser }) => {
+const Login = ({ tag }) => {
     return (
         <section className='login-container flex-cc'>
             <div className='box flex-column'>
@@ -13,7 +13,7 @@ const Login = ({ tag, setUser }) => {
                     {tag === 'login' ? 'Ingresar a la cuenta' : 'Nuevo registro'}
                 </h1>
                 <div className='form'>
-                    <SignForm tag={tag} setUser={setUser} />
+                    <SignForm tag={tag} />
                 </div>
             </div>
         </section>

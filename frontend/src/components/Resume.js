@@ -38,7 +38,6 @@ const Resume = ({ user }) => {
                 transactions={data.top10}
                 title={`Últimos ${data.top10.length} registros`}
                 setData={setData}
-                token={user.token}
             />
         </section>
     )
