@@ -21,9 +21,12 @@ const Resume = ({ token, getResume, top10 }) => {
             message('error', 'Ha ocurrido un problema. Intente más tarde.')
         }
     }
-
     useEffect(() => {
-        fetchData()
+        if (!top10?.length) {
+            fetchData()
+        } else {
+            setLoading(false)
+        }
     }, [])
 
     if (loading) {

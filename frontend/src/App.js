@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import Login from './views/Login'
 import Home from './views/Home'
+import Details from './views/Details'
 import { connect } from 'react-redux'
 import userActions from './redux/actions/usersActions'
 
@@ -15,6 +16,7 @@ const App = ({ token, verifyToken }) => {
     <BrowserRouter>
       <Routes>
         {token && <Route path='/' element={<Home />} />}
+        {token && <Route path='/details' element={<Details />} />}
         {!token && <Route path='/login' element={<Login />} />}
         {!token && <Route path='/signup' element={<Login />} />}
         <Route path='*' element={<Navigate to={token ? '/' : "/login"} />} />
