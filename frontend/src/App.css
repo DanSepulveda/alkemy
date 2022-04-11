@@ -354,6 +354,34 @@ div.row {
     display: flex;
 }
 
+div.row>div:first-child {
+    width: 15%;
+}
+
+div.row>div:nth-child(2) {
+    width: 5%;
+}
+
+div.row>div:nth-child(3) {
+    width: 10%;
+}
+
+div.row>div:nth-child(4) {
+    width: 50%;
+}
+
+div.row>div:nth-child(5) {
+    width: 10%;
+}
+
+div.row>div:last-child {
+    width: 10%;
+}
+
+.row-icons div:first-child {
+    margin-right: 10px;
+}
+
 div.row span {
     font-size: 18px;
 }

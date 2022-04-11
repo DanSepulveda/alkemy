@@ -1,14 +1,15 @@
 import message from '../utils/message'
-import Swal from 'sweetalert2'
 import formatter from '../utils/formatMoney'
 import transactionsActions from '../redux/actions/transactionsActions'
 import { connect } from 'react-redux'
 import confirmation from '../utils/confirmation'
+import Cell from './Cell'
+import ToolCell from './ToolCell'
 
 const Row = ({ transaction, deleteTransaction, token }) => {
     const { id, date, type, name, image, description, amount } = transaction
 
-    const icon = type === 'expense' ? 'down' : 'up'
+    const icon = type === 'expense' ? 'arrow-down' : 'arrow-up'
 
     const deleteRow = async () => {
         try {
@@ -25,43 +26,23 @@ const Row = ({ transaction, deleteTransaction, token }) => {
 
     return (
         <div className='row'>
-            <div className='flex-column-center' style={{ width: '15%' }}>
-                <span className='title'>Fecha</span>
-                <span>{(new Date(date)).toLocaleDateString()}</span>
-            </div>
-            <div className='flex-column-center' style={{ width: '5%' }}>
-                <span className='title'>Tipo</span>
-                <span className='icontool'>
-                    <span><i className={`fas fa-arrow-${icon}`}></i></span>
-                    <span className='tooltip'>{type.toUpperCase()}</span>
-                </span>
-            </div>
-            <div className='flex-column-center' style={{ width: '10%' }}>
-                <span className='title'>Categoría</span>
-                <span className='icontool'>
-                    <span><i className={`fas fa-${image}`}></i></span>
-                    <span className='tooltip'>{name.toUpperCase()}</span>
-                </span>
-            </div>
-            <div className='flex-column' style={{ width: '50%' }}>
-                <span className='title'>Descripción</span>
-                <span>{description}</span>
-            </div>
-            <div className='flex-column-center' style={{ width: '10%' }}>
-                <span className='title'>Monto</span>
-                <span>{formatter.format(amount)}</span>
-            </div>
-            <div className='flex-column-center' style={{ width: '10%' }}>
+            <Cell title='Fecha' data={(new Date(date)).toLocaleDateString()} />
+            <ToolCell title={'Tipo'} icon={icon} name={type.toUpperCase()} />
+            <ToolCell title={'Categoría'} icon={image} name={name.toUpperCase()} />
+            <Cell title={'Description'} data={description} />
+            <Cell title={'Monto'} data={formatter.format(amount)} />
+            <div className='flex-column-center'>
                 <span className='title'>Acciones</span>
-                <div>
-                    <span className='icontool' style={{ 'marginRight': '10px' }}>
-                        <span><i className='fas fa-edit'></i></span>
-                        <span className='tooltip border'>Editar</span>
-                    </span>
-                    <span className='icontool'>
-                        <span onClick={() => confirmation('¿Desea eliminar el registro?', 'Eliminar', null, deleteRow)}><i className='fas fa-trash-alt'></i></span>
-                        <span className='tooltip border'>Borrar</span>
-                    </span>
+                <div className='flex-cc row-icons'>
+                    <ToolCell
+                        icon={'edit'}
+                        name={'Editar'}
+                    />
+                    <ToolCell
+                        icon={'trash-alt'}
+                        name={'Borrar'}
+                        fx={() => confirmation('¿Desea eliminar el registro?', 'Eliminar', null, deleteRow)}
+                    />
                 </div>
             </div>
         </div>
