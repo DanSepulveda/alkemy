@@ -24,14 +24,24 @@ const userActions = {
         })
         return response.data
     },
-    deleteAccout: async (id, token, password) => {
-        const response = await axios.post(`${HOST}/user/${id}`, { password }, {
-            headers: {
-                Authorization: `Bearer ${token}`
+    deleteAccout: (id, token, password) => {
+        return async (dispatch) => {
+            const response = await axios.post(`${HOST}/user/${id}`, { password }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (response.data.success) {
+                dispatch({ type: 'LOGOUT', payload: null })
             }
-        })
-        return response.data
-    }
+            return response.data
+        }
+    },
+    logout: () => {
+        return (dispatch) => {
+            dispatch({ type: "LOGOUT", payload: null })
+        }
+    },
 }
 
 export default userActions

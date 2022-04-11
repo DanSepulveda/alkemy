@@ -1,14 +1,10 @@
 import Swal from 'sweetalert2'
 import message from '../utils/message'
 import userActions from '../redux/actions/usersActions'
+import { connect } from 'react-redux'
 
-const NavBox = ({ user, setUser }) => {
-    const clearUser = () => {
-        localStorage.removeItem('token')
-        setUser({ id: null, username: null, email: null, token: null })
-    }
-
-    const logout = () => {
+const NavBox = ({ id, token, email, logout, deleteUser }) => {
+    const closeSession = () => {
         Swal.fire({
             text: '¿Desea cerrar sesión?',
             icon: 'warning',
@@ -19,7 +15,7 @@ const NavBox = ({ user, setUser }) => {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                clearUser()
+                logout()
                 Swal.fire(
                     '',
                     'Sesión cerrada correctamente',
@@ -31,9 +27,8 @@ const NavBox = ({ user, setUser }) => {
 
     const deleteAccount = async (password) => {
         try {
-            const response = await userActions.deleteAccout(user.id, user.token, password)
+            const response = await deleteUser(id, token, password)
             if (response.success) {
-                clearUser()
                 message('success', 'Cuenta borrada exitosamente')
             } else {
                 message('error', response.error)
@@ -76,11 +71,24 @@ const NavBox = ({ user, setUser }) => {
 
     return (
         <div className='navbox flex-column'>
-            <p className='email'>{user.email}</p>
+            <p className='email'>{email}</p>
             <p className='delete' onClick={confirmation}>Borrar cuenta</p>
-            <p className='close' onClick={logout}>Cerrar sesión</p>
+            <p className='close' onClick={closeSession}>Cerrar sesión</p>
         </div>
     )
 }
 
-export default NavBox
+const mapStateToProps = state => {
+    return {
+        email: state.users.email,
+        id: state.users.id,
+        token: state.users.token
+    }
+}
+
+const mapDispatchToProps = {
+    logout: userActions.logout,
+    deleteUser: userActions.deleteAccout
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBox)
