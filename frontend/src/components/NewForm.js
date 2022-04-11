@@ -1,12 +1,21 @@
+import { useEffect, useState } from 'react'
 import { Formik, Form, Field } from 'formik'
-import { connect } from 'react-redux'
 import * as Yup from 'yup'
 import InputText from './InputText'
+import InputSelect from './InputSelect'
+import categoriesActions from '../redux/actions/categoriesActions'
+import { connect } from 'react-redux'
 
-const NewForm = ({ setForm }) => {
+const NewForm = ({ setForm, getCategories, categories }) => {
+    const [cat, setCat] = useState('income')
+
+    useEffect(() => {
+        getCategories()
+    }, [])
+
     const defaultValues = true === '/login'
-        ? { date: '', type: '', category: '', description: '', amount: '' }
-        : { date: '', type: '', category: '', description: '', amount: '' }
+        ? { date: '', type: '', category: 'health', description: '', amount: '' }
+        : { date: '', type: '', category: 'health', description: '', amount: '' }
 
     const validationSchema = {
         date: Yup.date().required('Campo requerido'),
@@ -23,41 +32,38 @@ const NewForm = ({ setForm }) => {
     return (
         <section className='new-transaction flex-cc'>
             <div>
-                <i className='fas fa-times-circle' onClick={() => setForm(false)}></i>
+                <div className='flex-cc'>
+                    <i className='fas fa-times-circle' onClick={() => setForm(false)}></i>
+                </div>
                 <Formik
                     initialValues={defaultValues}
                     validationSchema={Yup.object(validationSchema)}
                     onSubmit={values => console.log(values)}
                 >
                     <Form className='flex-column'>
-                        <div className='flex-cc'>
-                            <InputText
-                                name='date'
-                                id='date'
-                                label='Fecha'
-                                type='date'
-                            />
-                            <div className='input'>
-                                <label htmlFor='type'>Tipo de operación</label>
-                                <Field name='type' as='select' id='type'>
-                                    <option value='income'>Ingreso</option>
-                                    <option value='expense'>Gasto</option>
-                                </Field>
-                                <div><span></span></div>
-                            </div>
-                        </div>
                         <InputText
-                            name='category'
-                            id='category'
-                            placeholder='Categoría'
-                            label='Categoría'
+                            name='date'
+                            id='date'
+                            label='Fecha'
+                            type='date'
                         />
-                        <InputText
-                            name='description'
-                            id='description'
-                            placeholder='Ej: cuenta de luz'
-                            label='Descripción'
-                        />
+
+                        <InputSelect label='Tipo de operación' name='type' onChangeCapture={(e) => setCat(e.target.value)}>
+                            <option value='income' onClick={() => alert('income')}>Ingreso</option>
+                            <option value='expense' onClick={() => setCat('expense')}>Gasto</option>
+                        </InputSelect>
+
+                        <InputSelect label='Categoría' name='category'>
+                            {categories.filter(category => category.type === cat).map(category =>
+                                <option
+                                    value={category.id}
+                                    key={category.id}
+                                >
+                                    {category.name.toUpperCase()}
+                                </option>)
+                            }
+                        </InputSelect>
+
                         <InputText
                             name='amount'
                             id='amount'
@@ -65,8 +71,14 @@ const NewForm = ({ setForm }) => {
                             label='Monto'
                             type='number'
                         />
+                        <InputText
+                            name='description'
+                            id='description'
+                            placeholder='Ej: cuenta de luz'
+                            label='Descripción'
+                        />
                         <button type='submit' id='send'>
-                            Ingresar
+                            Guardar
                         </button>
                     </Form>
                 </Formik>
@@ -77,12 +89,12 @@ const NewForm = ({ setForm }) => {
 
 const mapStateToProps = state => {
     return {
-
+        categories: state.categories.categories
     }
 }
 
 const mapDispatchToProps = {
-
+    getCategories: categoriesActions.getCategories
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewForm)

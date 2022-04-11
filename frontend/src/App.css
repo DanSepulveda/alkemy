@@ -169,13 +169,15 @@ div.buttons a.active {
 }
 
 /* FORM */
-div.form button {
+div.form button,
+section.new-transaction button {
     background-color: var(--green);
     width: 100%;
     padding: .7em 0;
     font-size: 21px;
     color: white;
     border: none;
+    cursor: pointer;
 }
 
 /* INPUT COMPONENT */
@@ -192,6 +194,12 @@ select {
     padding: .8em 2em;
     font-size: 18px;
     margin-bottom: 5px;
+}
+
+section.new-transaction input,
+section.new-transaction select {
+    padding: .4em 1em;
+    font-size: 16px;
 }
 
 div.input input::placeholder {
@@ -469,15 +477,36 @@ section.new-transaction {
 }
 
 label {
-    font-size: 18px;
+    font-size: 15px;
     margin-bottom: 10px;
+    color: var(--green);
+}
+
+option {
+    color: var(--main);
 }
 
 section.new-transaction>div {
-    width: 40vw;
-    height: 85vh;
+    min-width: 30vw;
+    min-height: 80vh;
     background-color: var(--main);
-    padding: 2em;
+    padding: 1em 2em;
+}
+
+section.new-transaction>div>div {
+    justify-content: flex-end;
+    margin-bottom: 1em;
+}
+
+section.new-transaction i {
+    text-align: left;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+section.new-transaction i:hover {
+    color: tomato;
 }
 
 /* MEDIA QUERIES */

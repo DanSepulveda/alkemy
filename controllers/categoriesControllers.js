@@ -11,7 +11,7 @@ const categoriesControllers = {
     },
     getAllCategories: async (req, res) => {
         try {
-            const categories = await pool.query('SELECT * from categories')
+            const categories = await pool.query('SELECT * from categories ORDER BY name ASC')
             res.status(200).json({ success: true, response: categories })
         } catch (error) {
             res.json({ success: false, error: error.message })

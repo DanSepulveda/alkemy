@@ -7,7 +7,7 @@ const budgetControllers = {
 
         try {
             // Saving transaction
-            const transaction = await pool.query(`INSERT INTO transactions VALUES (NULL, '${description}', '${type}', '${amount}', STR_TO_DATE('${date}', '%d-%m-%Y'), '${category_id}', '${user_id}')`)
+            const transaction = await pool.query(`INSERT INTO transactions VALUES (NULL, '${description}', '${type}', '${amount}', STR_TO_DATE('${date}', '%d-%m-%Y'), '${parseInt(category_id)}', '${user_id}')`)
 
             res.status(200).json({ success: true, response: transaction.insertId })
         } catch (error) {
