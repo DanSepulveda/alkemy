@@ -3,6 +3,7 @@ import Swal from 'sweetalert2'
 import formatter from '../utils/formatMoney'
 import transactionsActions from '../redux/actions/transactionsActions'
 import { connect } from 'react-redux'
+import confirmation from '../utils/confirmation'
 
 const Row = ({ transaction, deleteTransaction, token }) => {
     const { id, date, type, name, image, description, amount } = transaction
@@ -20,22 +21,6 @@ const Row = ({ transaction, deleteTransaction, token }) => {
         } catch (error) {
             message('error', 'Ha ocurrido un problema. Intente más tarde.')
         }
-    }
-
-    const confirmation = () => {
-        Swal.fire({
-            text: '¿Desea eliminar el registro?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await deleteRow()
-            }
-        })
     }
 
     return (
@@ -74,7 +59,7 @@ const Row = ({ transaction, deleteTransaction, token }) => {
                         <span className='tooltip border'>Editar</span>
                     </span>
                     <span className='icontool'>
-                        <span onClick={confirmation}><i className='fas fa-trash-alt'></i></span>
+                        <span onClick={() => confirmation('¿Desea eliminar el registro?', 'Eliminar', null, deleteRow)}><i className='fas fa-trash-alt'></i></span>
                         <span className='tooltip border'>Borrar</span>
                     </span>
                 </div>

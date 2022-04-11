@@ -2,29 +2,9 @@ import Swal from 'sweetalert2'
 import message from '../utils/message'
 import userActions from '../redux/actions/usersActions'
 import { connect } from 'react-redux'
+import closeSession from '../utils/confirmation'
 
 const NavBox = ({ id, token, email, logout, deleteUser }) => {
-    const closeSession = () => {
-        Swal.fire({
-            text: '¿Desea cerrar sesión?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Cerrar sesión',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                logout()
-                Swal.fire(
-                    '',
-                    'Sesión cerrada correctamente',
-                    'success'
-                )
-            }
-        })
-    }
-
     const deleteAccount = async (password) => {
         try {
             const response = await deleteUser(id, token, password)
@@ -72,8 +52,15 @@ const NavBox = ({ id, token, email, logout, deleteUser }) => {
     return (
         <div className='navbox flex-column'>
             <p className='email'>{email}</p>
-            <p className='delete' onClick={confirmation}>Borrar cuenta</p>
-            <p className='close' onClick={closeSession}>Cerrar sesión</p>
+            <p className='delete' onClick={confirmation}>
+                Borrar cuenta
+            </p>
+            <p
+                className='close'
+                onClick={() => closeSession('¿Desea cerrar sesión?', 'Cerrar sesión', 'Sesión cerrada correctamente', logout)}
+            >
+                Cerrar sesión
+            </p>
         </div>
     )
 }
