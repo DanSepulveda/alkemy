@@ -1,16 +1,20 @@
 import Navbar from '../components/Navbar'
+import Resume from '../components/Resume'
 import MainSection from '../components/MainSection'
 import Transactions from '../components/Transactions'
+import { useLocation } from 'react-router-dom'
 
-const Details = () => {
+const Records = () => {
+    const path = useLocation().pathname
+
     return (
         <>
             <Navbar />
             <MainSection>
-                <Transactions />
+                {path === '/' ? <Resume /> : <Transactions />}
             </MainSection>
         </>
     )
 }
 
-export default Details
+export default Records

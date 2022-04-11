@@ -21,6 +21,16 @@ const Resume = ({ token, getResume, top10 }) => {
             message('error', 'Ha ocurrido un problema. Intente más tarde.')
         }
     }
+
+    let title
+    if (top10?.length === 1) {
+        title = 'Único registro'
+    } else if (top10?.length > 1) {
+        title = `Últimos ${top10.length} registros`
+    } else {
+        title = 'No existen movimientos'
+    }
+
     useEffect(() => {
         if (!top10?.length) {
             fetchData()
@@ -38,7 +48,7 @@ const Resume = ({ token, getResume, top10 }) => {
             <Balance />
             <Table
                 transactions={top10}
-                title={`Últimos ${top10.length} registros`}
+                title={title}
             />
         </section>
     )

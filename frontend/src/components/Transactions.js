@@ -21,6 +21,10 @@ const Transactions = ({ token, getTransactions, transactions }) => {
         }
     }
 
+    const title = transactions?.length
+        ? 'Historial de movimientos'
+        : 'No existen movimientos'
+
     useEffect(() => {
         if (!transactions?.length) {
             fetchData()
@@ -37,7 +41,7 @@ const Transactions = ({ token, getTransactions, transactions }) => {
         <section>
             <Table
                 transactions={transactions}
-                title='Historial de movimientos'
+                title={title}
             />
         </section>
     )

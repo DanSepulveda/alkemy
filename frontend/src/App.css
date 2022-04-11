@@ -310,7 +310,7 @@ div.input span {
 
 /* BALANCE */
 .card {
-    padding: 2em;
+    padding-top: 2em;
 }
 
 .card div {
@@ -340,7 +340,7 @@ div.input span {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    margin-bottom: 1em;
+    margin: 1em 0;
 }
 
 /* ROW */
@@ -354,23 +354,28 @@ div.row {
     display: flex;
 }
 
-div.row>div:first-child {
+div.row>div:first-child,
+section.filters>div:first-child {
     width: 15%;
 }
 
-div.row>div:nth-child(2) {
+div.row>div:nth-child(2),
+section.filters>div:nth-child(2) {
     width: 5%;
 }
 
-div.row>div:nth-child(3) {
+div.row>div:nth-child(3),
+section.filters>div:nth-child(3) {
     width: 10%;
 }
 
-div.row>div:nth-child(4) {
+div.row>div:nth-child(4),
+section.filters>div:nth-child(4) {
     width: 50%;
 }
 
-div.row>div:nth-child(5) {
+div.row>div:nth-child(5),
+section.filters>div:nth-child(5) {
     width: 10%;
 }
 
@@ -430,6 +435,14 @@ span.icontool:hover span.border {
 
 .fa-edit {
     color: var(--main);
+}
+
+/* FILTERS */
+.filters {
+    margin-bottom: 1em;
+    display: flex;
+    width: 100%;
+    padding: 0 1em;
 }
 
 /* MEDIA QUERIES */
