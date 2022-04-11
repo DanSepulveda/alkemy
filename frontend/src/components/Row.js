@@ -1,5 +1,5 @@
 import message from '../utils/message'
-import transactionsActions from '../utils/transactionsActions'
+import transactionsActions from '../redux/actions/transactionsActions'
 import Swal from 'sweetalert2'
 
 const Row = ({ transaction, setData, token }) => {

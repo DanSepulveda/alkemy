@@ -1,8 +1,8 @@
+import formatter from '../utils/formatMoney'
+import { connect } from 'react-redux'
+
 const Balance = ({ data }) => {
-    const formatter = new Intl.NumberFormat('es-CL', {
-        style: 'currency',
-        currency: 'CLP',
-    })
+    const { total_income, total_expenses } = data
 
     return (
         <section className='card flex-cc'>
@@ -11,10 +11,16 @@ const Balance = ({ data }) => {
                     <i className='fas fa-balance-scale'></i>
                     Balance
                 </h2>
-                <span>{formatter.format(data.total_income - data.total_expenses)}</span>
+                <span>{formatter.format(total_income - total_expenses)}</span>
             </div>
         </section>
     )
 }
 
-export default Balance
+const mapStateToProps = state => {
+    return {
+        data: state.transactions.balance
+    }
+}
+
+export default connect(mapStateToProps)(Balance)

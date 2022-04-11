@@ -3,15 +3,16 @@ import message from '../utils/message'
 import Table from './Table'
 import Loader from './Loader'
 import Balance from './Balance'
-import transactionsActions from '../utils/transactionsActions'
+import transactionsActions from '../redux/actions/transactionsActions'
+import { connect } from 'react-redux'
 
-const Resume = ({ user }) => {
+const Resume = ({ token, getResume }) => {
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
 
-    const getResume = async () => {
+    const fetchData = async () => {
         try {
-            const response = await transactionsActions.getResume(user.token)
+            const response = await getResume(token)
             if (response.success) {
                 setData(response.response)
                 setLoading(false)
@@ -24,7 +25,7 @@ const Resume = ({ user }) => {
     }
 
     useEffect(() => {
-        getResume()
+        fetchData()
     }, [])
 
     if (loading) {
@@ -33,7 +34,7 @@ const Resume = ({ user }) => {
 
     return (
         <section>
-            <Balance data={data.resume[0]} />
+            <Balance />
             <Table
                 transactions={data.top10}
                 title={`Últimos ${data.top10.length} registros`}
@@ -43,4 +44,14 @@ const Resume = ({ user }) => {
     )
 }
 
-export default Resume
+const mapStateToProps = state => {
+    return {
+        token: state.users.token
+    }
+}
+
+const mapDispatchToProps = {
+    getResume: transactionsActions.getResume
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Resume)
