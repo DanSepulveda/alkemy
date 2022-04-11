@@ -2,12 +2,12 @@ import Navbar from '../components/Navbar'
 import Resume from '../components/Resume'
 import MainSection from '../components/MainSection'
 
-const Home = ({ user, setUser }) => {
+const Home = () => {
     return (
         <>
-            <Navbar user={user} setUser={setUser} />
+            <Navbar />
             <MainSection>
-                <Resume user={user} />
+                <Resume />
             </MainSection>
         </>
     )
