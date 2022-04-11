@@ -183,7 +183,8 @@ div.input {
     width: 100%;
 }
 
-div.input input {
+div.input input,
+select {
     width: 100%;
     background-color: transparent;
     color: whitesmoke;
@@ -197,7 +198,8 @@ div.input input::placeholder {
     color: #ccc;
 }
 
-div.input input:focus {
+div.input input:focus,
+select {
     border: 2px solid whitesmoke;
     outline: none;
 }
@@ -443,6 +445,39 @@ span.icontool:hover span.border {
     display: flex;
     width: 100%;
     padding: 0 1em;
+}
+
+/* ADD ICON */
+div.add-icon {
+    background-color: red;
+}
+
+.fa-plus-circle {
+    font-size: 50px;
+    color: var(--green);
+    cursor: pointer;
+}
+
+/* NEW TRANSACTION FORM */
+section.new-transaction {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+label {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+section.new-transaction>div {
+    width: 40vw;
+    height: 85vh;
+    background-color: var(--main);
+    padding: 2em;
 }
 
 /* MEDIA QUERIES */

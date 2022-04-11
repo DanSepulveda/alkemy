@@ -5,7 +5,7 @@ const InputText = ({ label, ...props }) => {
 
     return (
         <div className='input'>
-            {props.label && <label htmlFor={props.id}>{label}</label>}
+            {label && <label htmlFor={props.id}>{label}</label>}
             <input type={props.type || 'text'} {...field} {...props} />
             <div><span>{meta.touched && meta.error ? `* ${meta.error}` : null}</span></div>
         </div>
