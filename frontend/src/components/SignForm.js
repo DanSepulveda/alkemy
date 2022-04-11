@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import InputText from './InputText'
 import message from '../utils/message'
-import userActions from '../utils/usersActions'
+import userActions from '../redux/actions/usersActions'
 
 const SignForm = ({ tag, setUser }) => {
     const navigate = useNavigate()

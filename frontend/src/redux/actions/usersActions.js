@@ -3,9 +3,14 @@ import axios from 'axios'
 const HOST = 'http://localhost:4000/api'
 
 const userActions = {
-    signup: async (user) => {
-        const response = await axios.post(`${HOST}/signup`, user)
-        return response.data
+    signup: (user) => {
+        return async (dispatch) => {
+            const response = await axios.post(`${HOST}/signup`, user)
+            if (response.data.success) {
+                dispatch({ type: 'LOGIN', payload: response.data.response })
+            }
+            return response.data
+        }
     },
     login: async (user) => {
         const response = await axios.post(`${HOST}/login`, user)

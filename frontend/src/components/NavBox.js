@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 import message from '../utils/message'
-import userActions from '../utils/usersActions'
+import userActions from '../redux/actions/usersActions'
 
 const NavBox = ({ user, setUser }) => {
     const clearUser = () => {
