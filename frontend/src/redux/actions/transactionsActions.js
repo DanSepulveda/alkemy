@@ -3,6 +3,19 @@ import axios from 'axios'
 const HOST = 'http://localhost:4000/api'
 
 const transactionsActions = {
+    getTransactionsByUser: (token) => {
+        return async (dispatch) => {
+            const response = await axios.get(`${HOST}/transactions`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (response.data.success) {
+                dispatch({ type: 'GET_ALL', payload: response.data.response })
+            }
+            return response.data
+        }
+    },
     getResume: (token) => {
         return async (dispatch) => {
             const response = await axios.get(`${HOST}/resume`, {
