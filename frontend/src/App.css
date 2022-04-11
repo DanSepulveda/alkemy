@@ -368,12 +368,43 @@ div.row span.title {
 
 .fa-arrow-up {
     color: green;
-    font-size: 20px;
 }
 
-.fa-arrow-down {
+.fa-arrow-down,
+.fa-trash-alt {
     color: red;
-    font-size: 20px;
+}
+
+span.tooltip {
+    display: none;
+}
+
+span.icontool {
+    cursor: pointer;
+}
+
+span.icontool i {
+    font-size: 25px;
+}
+
+span.icontool:hover span.tooltip {
+    display: block;
+    position: absolute;
+    background-color: var(--main);
+    color: white;
+    font-size: 14px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    margin-top: -20px;
+    margin-left: 30px;
+}
+
+span.icontool:hover span.border {
+    margin-left: -60px;
+}
+
+.fa-edit {
+    color: var(--main);
 }
 
 /* MEDIA QUERIES */

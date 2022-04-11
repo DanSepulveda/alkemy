@@ -11,6 +11,14 @@ const transactionsActions = {
         })
         return response.data
     },
+    deleteTransaction: async (id, token) => {
+        const response = await axios.delete(`${HOST}/transaction/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    }
 }
 
 export default transactionsActions
