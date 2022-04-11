@@ -21,13 +21,20 @@ const userActions = {
             return response.data
         }
     },
-    verifyToken: async (token) => {
-        const response = await axios.get(`${HOST}/login`, {
-            headers: {
-                Authorization: `Bearer ${token}`
+    verifyToken: (token) => {
+        return async (dispatch) => {
+            try {
+                const response = await axios.get(`${HOST}/login`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                response.data.response.token = token
+                dispatch({ type: 'LOGIN', payload: response.data.response })
+            } catch (error) {
+                return dispatch({ type: 'LOGOUT', payload: null })
             }
-        })
-        return response.data
+        }
     },
     deleteAccout: (id, token, password) => {
         return async (dispatch) => {
@@ -44,7 +51,7 @@ const userActions = {
     },
     logout: () => {
         return (dispatch) => {
-            dispatch({ type: "LOGOUT", payload: null })
+            dispatch({ type: 'LOGOUT', payload: null })
         }
     },
 }

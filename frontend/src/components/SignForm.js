@@ -27,7 +27,7 @@ const SignForm = ({ login, signup }) => {
                 message('error', response.error)
             }
         } catch (error) {
-            message('error', error.message)
+            message('error', 'Ha ocurrido un error. Intente más tarde.')
         }
     }
 

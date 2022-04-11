@@ -6,9 +6,6 @@ const Home = () => {
     return (
         <>
             <Navbar />
-            <MainSection>
-                <Resume />
-            </MainSection>
         </>
     )
 }
