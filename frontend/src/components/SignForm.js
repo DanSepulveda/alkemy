@@ -1,14 +1,37 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import InputText from './InputText'
 import message from '../utils/message'
 import userActions from '../redux/actions/usersActions'
+import { connect } from 'react-redux'
 
-const SignForm = ({ tag, setUser }) => {
+const SignForm = ({ login, signup }) => {
     const navigate = useNavigate()
+    const path = useLocation().pathname
 
-    const defaultValues = tag === 'login'
+    const sign = async (user) => {
+        try {
+            const response = path === '/login'
+                ? await login(user)
+                : await signup(user)
+
+            if (response.success) {
+                const text = path === '/login'
+                    ? 'Ingreso correcto'
+                    : 'Cuenta creada correctamente'
+
+                message('success', text, 'top')
+                navigate('/')
+            } else {
+                message('error', response.error)
+            }
+        } catch (error) {
+            message('error', error.message)
+        }
+    }
+
+    const defaultValues = path === '/login'
         ? { email: '', password: '' }
         : { username: '', email: '', password: '' }
 
@@ -21,33 +44,10 @@ const SignForm = ({ tag, setUser }) => {
             .required('Campo requerido')
     }
 
-    if (tag === 'sign') {
+    if (path === '/signup') {
         validationSchema.username = Yup.string()
             .min(4, 'Nombre de usuario demasiado corto')
             .required('Campo requerido')
-    }
-
-    const sign = async (user) => {
-        try {
-            const response = tag === 'login'
-                ? await userActions.login(user)
-                : await userActions.signup(user)
-
-            if (response.success) {
-                const text = tag === 'login'
-                    ? 'Ingreso correcto'
-                    : 'Cuenta creada correctamente'
-
-                message('success', text, 'top')
-                localStorage.setItem('token', response.response.token)
-                setUser(response.response)
-                navigate('/')
-            } else {
-                message('error', response.error)
-            }
-        } catch (error) {
-            message('error', 'Ha ocurrido un error. Intente más tarde.')
-        }
     }
 
     return (
@@ -57,7 +57,7 @@ const SignForm = ({ tag, setUser }) => {
             onSubmit={values => sign(values)}
         >
             <Form className='flex-column'>
-                {tag === 'sign' &&
+                {path === '/signup' &&
                     <InputText
                         name='username'
                         id='username'
@@ -83,4 +83,9 @@ const SignForm = ({ tag, setUser }) => {
     )
 }
 
-export default SignForm
+const mapDispatchToProps = {
+    login: userActions.login,
+    signup: userActions.signup
+}
+
+export default connect(null, mapDispatchToProps)(SignForm)

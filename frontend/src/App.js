@@ -15,8 +15,8 @@ const App = ({ token, verifyToken }) => {
     <BrowserRouter>
       <Routes>
         {token && <Route path='/' element={<Home />} />}
-        {!token && <Route path='/login' element={<Login tag='login' />} />}
-        {!token && <Route path='/signup' element={<Login tag='sign' />} />}
+        {!token && <Route path='/login' element={<Login />} />}
+        {!token && <Route path='/signup' element={<Login />} />}
         <Route path='*' element={<Navigate to={token ? '/' : "/login"} />} />
       </Routes>
     </BrowserRouter>

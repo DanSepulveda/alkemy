@@ -12,9 +12,14 @@ const userActions = {
             return response.data
         }
     },
-    login: async (user) => {
-        const response = await axios.post(`${HOST}/login`, user)
-        return response.data
+    login: (user) => {
+        return async (dispatch) => {
+            const response = await axios.post(`${HOST}/login`, user)
+            if (response.data.success) {
+                dispatch({ type: 'LOGIN', payload: response.data.response })
+            }
+            return response.data
+        }
     },
     verifyToken: async (token) => {
         const response = await axios.get(`${HOST}/login`, {

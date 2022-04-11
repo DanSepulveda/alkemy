@@ -29,10 +29,6 @@ main {
     padding: 0 2em;
 }
 
-section {
-    /* min-height: 100vh; */
-}
-
 /* GENERAL CLASSES */
 .flex-cc {
     display: flex;
@@ -132,6 +128,7 @@ p.close:hover {
 /* SIGNUP/LOGIN VIEW */
 section.login-container {
     background-color: var(--main);
+    min-height: 100vh;
 }
 
 div.box {
