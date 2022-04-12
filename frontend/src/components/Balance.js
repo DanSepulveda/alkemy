@@ -1,12 +1,12 @@
 import formatter from '../utils/formatMoney'
 import { connect } from 'react-redux'
 
-const Balance = ({ data }) => {
-    const { total_income, total_expenses } = data
+const Balance = ({ balance }) => {
+    const { total_income, total_expenses } = balance
 
     return (
         <section className='card flex-cc'>
-            <div className='flex-column-center'>
+            <div className='flex-column-center bradius5 card-content'>
                 <h2>
                     <i className='fas fa-balance-scale'></i>
                     Balance
@@ -19,7 +19,7 @@ const Balance = ({ data }) => {
 
 const mapStateToProps = state => {
     return {
-        data: state.transactions.balance
+        balance: state.transactions.balance
     }
 }
 

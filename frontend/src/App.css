@@ -185,12 +185,34 @@ p.close:hover {
     color: white;
 }
 
-
-
-
-.main {
-    background-color: var(--secondary);
+/* BALANCE */
+section.card {
+    padding-top: 2em;
 }
+
+section.card div {
+    padding: 2em 5em;
+    background-color: #ccc;
+    color: var(--main);
+}
+
+div.card-content h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+div.card-content i {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+div.card-content span {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+
 
 /* SIGNUP/LOGIN VIEW */
 section.login-container {
@@ -274,32 +296,7 @@ div.input span {
     color: #1ab186bb;
 }
 
-/* BALANCE */
-.card {
-    padding-top: 2em;
-}
 
-.card div {
-    padding: 2em 5em;
-    background-color: #ccc;
-    color: var(--main);
-    border-radius: 5px;
-}
-
-.card h2 {
-    font-size: 25px;
-    margin-bottom: 10px;
-}
-
-.card i {
-    font-size: 25px;
-    margin-right: 10px;
-}
-
-.card span {
-    font-size: 30px;
-    font-weight: bold;
-}
 
 /* TABLE */
 .table h1 {
