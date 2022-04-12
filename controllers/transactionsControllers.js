@@ -2,13 +2,15 @@ const pool = require('../config/database')
 
 const budgetControllers = {
     createTransaction: async (req, res) => {
-        const { description, type, amount, date, category_id } = req.body
+        const { description, type, amount, date, category } = req.body
+        console.log(req.body)
         const user_id = req.user[0].id
 
         try {
             // Saving transaction
-            const transaction = await pool.query(`INSERT INTO transactions VALUES (NULL, '${description}', '${type}', '${amount}', STR_TO_DATE('${date}', '%d-%m-%Y'), '${parseInt(category_id)}', '${user_id}')`)
-
+            console.log('1')
+            const transaction = await pool.query(`INSERT INTO transactions VALUES (NULL, '${description}', '${type}', '${amount}', STR_TO_DATE('${date}', '%Y-%m-%d'), '${parseInt(category)}', '${user_id}')`)
+            console.log('2')
             res.status(200).json({ success: true, response: transaction.insertId })
         } catch (error) {
             res.json({ success: false, error: error.message })

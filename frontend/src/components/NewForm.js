@@ -1,13 +1,30 @@
 import { useEffect, useState } from 'react'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import InputText from './InputText'
 import InputSelect from './InputSelect'
 import categoriesActions from '../redux/actions/categoriesActions'
+import transactionsActions from '../redux/actions/transactionsActions'
 import { connect } from 'react-redux'
+import message from '../utils/message'
 
-const NewForm = ({ setForm, getCategories, categories }) => {
+const NewForm = ({ setForm, getCategories, categories, createTransaction, token }) => {
     const [cat, setCat] = useState('income')
+
+    const addTransaction = async (values) => {
+        try {
+            const response = await createTransaction(values, token)
+            console.log(response)
+            if (response.success) {
+                message('success', 'Transacción creada correctamente')
+                setForm(false)
+            } else {
+                throw new Error
+            }
+        } catch (error) {
+            message('error', 'Ha ocurrido un error. Intente más tarde.')
+        }
+    }
 
     useEffect(() => {
         getCategories()
@@ -38,7 +55,7 @@ const NewForm = ({ setForm, getCategories, categories }) => {
                 <Formik
                     initialValues={defaultValues}
                     validationSchema={Yup.object(validationSchema)}
-                    onSubmit={values => console.log(values)}
+                    onSubmit={values => addTransaction(values)}
                 >
                     <Form className='flex-column'>
                         <InputText
@@ -89,12 +106,14 @@ const NewForm = ({ setForm, getCategories, categories }) => {
 
 const mapStateToProps = state => {
     return {
-        categories: state.categories.categories
+        categories: state.categories.categories,
+        token: state.users.token
     }
 }
 
 const mapDispatchToProps = {
-    getCategories: categoriesActions.getCategories
+    getCategories: categoriesActions.getCategories,
+    createTransaction: transactionsActions.createTransaction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewForm)

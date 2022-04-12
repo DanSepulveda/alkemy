@@ -6,6 +6,13 @@ const initialState = {
 
 const transactionsReducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'CREATE':
+            console.log('llego')
+            return {
+                ...state,
+                allTransactions: state.allTransactions.push(action.payload),
+                top10: state.top10.push(action.payload)
+            }
         case 'GET_ALL':
             return {
                 ...state,

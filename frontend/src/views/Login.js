@@ -3,7 +3,11 @@ import SignForm from '../components/SignForm'
 import { useLocation } from 'react-router-dom'
 
 const Login = () => {
-    const pathname = useLocation().pathname
+    const path = useLocation().pathname
+
+    const title = path === '/login'
+        ? 'Ingresar a la cuenta'
+        : 'Nuevo registro'
 
     return (
         <section className='login-container flex-cc'>
@@ -13,7 +17,7 @@ const Login = () => {
                     <NavLink to='/signup'>Crear cuenta</NavLink>
                 </div>
                 <h1>
-                    {pathname === '/login' ? 'Ingresar a la cuenta' : 'Nuevo registro'}
+                    {title}
                 </h1>
                 <div className='form'>
                     <SignForm />

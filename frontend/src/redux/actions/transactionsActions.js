@@ -3,6 +3,20 @@ import axios from 'axios'
 const HOST = 'http://localhost:4000/api'
 
 const transactionsActions = {
+    createTransaction: (transaction, token) => {
+        return async (dispatch) => {
+            const response = await axios.post(`${HOST}/transactions`, transaction, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (response.data.success) {
+                transaction.id = response.data.response
+                dispatch({ type: 'CREATE', payload: transaction })
+            }
+            return response.data
+        }
+    },
     getTransactionsByUser: (token) => {
         return async (dispatch) => {
             const response = await axios.get(`${HOST}/transactions`, {
