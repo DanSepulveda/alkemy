@@ -38,6 +38,7 @@ const userControllers = {
     },
     login: async (req, res) => {
         const { email, password } = req.body
+
         try {
             // Checking if user exists
             const user = await pool.query(`SELECT * FROM users WHERE email = '${email}'`)

@@ -26,7 +26,36 @@ main {
     width: 100%;
     height: 100%;
     color: #eee;
-    padding: 0 2em;
+    /* padding: 0 2em; */
+}
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+}
+
+a.active {
+    pointer-events: none;
+    user-select: none;
+}
+
+button {
+    width: 100%;
+    padding: .7em 0;
+    color: white;
+    background-color: var(--green);
+    font-size: 21px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 300ms;
+    font-weight: bold;
+    font-family: 'Roboto', san-serif;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background-color: #1ab186b8;
 }
 
 /* GENERAL CLASSES */
@@ -45,6 +74,22 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.bg-main {
+    background-color: var(--main);
+}
+
+.bg-secondary {
+    background-color: var(--secondary);
+}
+
+.bg-green {
+    background-color: var(--green);
+}
+
+.bradius5 {
+    border-radius: 5px;
 }
 
 /* NAVBAR */
@@ -127,25 +172,18 @@ p.close:hover {
 
 /* SIGNUP/LOGIN VIEW */
 section.login-container {
-    background-color: var(--main);
     min-height: 100vh;
 }
 
 div.box {
-    padding: 1.5em;
     min-height: 75vh;
     min-width: 30vw;
-    border-radius: 4px;
-    background-color: var(--secondary);
+    padding: 1.5em;
 }
 
 div.box h1 {
-    text-align: center;
     margin: 1em 0;
-    font-size: 35px;
     flex: 1;
-    color: rgb(30, 30, 30);
-    color: #eee;
 }
 
 div.buttons {
@@ -162,22 +200,15 @@ div.buttons a {
     text-decoration: none;
     font-size: 18px;
     background-color: #1ab1864c;
+    transition: all 300ms;
 }
 
 div.buttons a.active {
     background-color: var(--green);
 }
 
-/* FORM */
-div.form button,
-section.new-transaction button {
-    background-color: var(--green);
-    width: 100%;
-    padding: .7em 0;
-    font-size: 21px;
-    color: white;
-    border: none;
-    cursor: pointer;
+div.buttons a:not(.active):hover {
+    background-color: #1ab1869d;
 }
 
 /* INPUT COMPONENT */
@@ -226,11 +257,6 @@ div.input span {
     justify-content: center;
     align-items: center;
     min-height: 82vh;
-}
-
-.loader h1 {
-    font-size: 30px;
-    color: #ccc;
 }
 
 .dots {
@@ -347,8 +373,6 @@ div.input span {
 
 /* TABLE */
 .table h1 {
-    text-align: center;
-    font-size: 30px;
     font-weight: bold;
     margin: 1em 0;
 }

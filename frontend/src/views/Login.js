@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import SignForm from '../components/SignForm'
 import { useLocation } from 'react-router-dom'
+import MainSection from '../components/MainSection'
 
 const Login = () => {
     const path = useLocation().pathname
@@ -10,20 +11,18 @@ const Login = () => {
         : 'Nuevo registro'
 
     return (
-        <section className='login-container flex-cc'>
-            <div className='box flex-column'>
-                <div className='buttons flex-cc'>
-                    <NavLink to='/login'>Ingresar</NavLink>
-                    <NavLink to='/signup'>Crear cuenta</NavLink>
-                </div>
-                <h1>
-                    {title}
-                </h1>
-                <div className='form'>
+        <MainSection>
+            <section className='login-container flex-cc bg-main'>
+                <div className='box flex-column bg-secondary bradius5'>
+                    <div className='buttons flex-cc'>
+                        <NavLink to='/login'>Ingresar</NavLink>
+                        <NavLink to='/signup'>Crear cuenta</NavLink>
+                    </div>
+                    <h1>{title}</h1>
                     <SignForm />
                 </div>
-            </div>
-        </section>
+            </section>
+        </MainSection>
     )
 }
 
