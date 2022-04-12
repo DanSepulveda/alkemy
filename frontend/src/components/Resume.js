@@ -22,17 +22,14 @@ const Resume = ({ token, getResume, top10 }) => {
         }
     }
 
-    let title
-    if (top10?.length === 1) {
-        title = 'Único registro'
-    } else if (top10?.length > 1) {
-        title = `Últimos ${top10.length} registros`
-    } else {
-        title = 'No existen movimientos'
-    }
+    const title = top10.length === 1
+        ? 'Único registro'
+        : top10.length > 1
+            ? `Últimos ${top10.length} registros`
+            : 'No existen movimientos'
 
     useEffect(() => {
-        if (!top10?.length) {
+        if (!top10.length) {
             fetchData()
         } else {
             setLoading(false)
@@ -44,7 +41,7 @@ const Resume = ({ token, getResume, top10 }) => {
     }
 
     return (
-        <section>
+        <section className='results'>
             <Balance />
             <Table
                 transactions={top10}

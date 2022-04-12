@@ -211,6 +211,17 @@ div.card-content span {
     font-weight: bold;
 }
 
+/* TABLE */
+section.results {
+    padding: 0 2em;
+}
+
+section.results h1 {
+    font-weight: bold;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
 
 
 
@@ -298,11 +309,7 @@ div.input span {
 
 
 
-/* TABLE */
-.table h1 {
-    font-weight: bold;
-    margin: 1em 0;
-}
+
 
 /* ROW */
 div.row {

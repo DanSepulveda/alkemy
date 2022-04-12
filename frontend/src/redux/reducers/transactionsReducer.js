@@ -1,7 +1,7 @@
 const initialState = {
-    balance: null,
-    top10: null,
-    allTransactions: null
+    balance: {},
+    top10: [],
+    allTransactions: []
 }
 
 const transactionsReducer = (state = initialState, action) => {

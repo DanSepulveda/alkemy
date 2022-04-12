@@ -9,7 +9,7 @@ const Table = ({ transactions, title }) => {
     const [form, setForm] = useState(false)
 
     return (
-        <section className='flex-column table'>
+        <section className='flex-column'>
             {form && <NewForm setForm={setForm} />}
             <h1>{title}</h1>
             {path === '/details' && transactions.length ? <Filters /> : null}
