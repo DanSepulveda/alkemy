@@ -15,9 +15,9 @@ const Row = ({ transaction, deleteTransaction, token }) => {
         try {
             const response = await deleteTransaction(id, token)
             if (response.success) {
-                message('success', 'Registro borrado correctamente')
+                message('success', 'd')
             } else {
-                throw new Error
+                throw new Error()
             }
         } catch (error) {
             message('error', 'Ha ocurrido un problema. Intente más tarde.')

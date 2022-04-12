@@ -15,12 +15,14 @@ const Resume = ({ token, getResume, top10 }) => {
             if (response.success) {
                 setLoading(false)
             } else {
-                throw new Error
+                throw new Error()
             }
         } catch (error) {
             message('error', 'Ha ocurrido un problema. Intente más tarde.')
         }
     }
+
+    console.log(top10)
 
     const title = top10.length === 1
         ? 'Único registro'
@@ -34,6 +36,7 @@ const Resume = ({ token, getResume, top10 }) => {
         } else {
             setLoading(false)
         }
+        //eslint-disable-next-line
     }, [])
 
     if (loading) {

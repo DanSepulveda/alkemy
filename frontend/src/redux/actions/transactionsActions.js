@@ -11,8 +11,7 @@ const transactionsActions = {
                 }
             })
             if (response.data.success) {
-                transaction.id = response.data.response
-                dispatch({ type: 'CREATE', payload: transaction })
+                dispatch({ type: 'CREATE', payload: response.data.response })
             }
             return response.data
         }

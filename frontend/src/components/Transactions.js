@@ -14,23 +14,24 @@ const Transactions = ({ token, getTransactions, transactions }) => {
             if (response.success) {
                 setLoading(false)
             } else {
-                throw new Error
+                throw new Error()
             }
         } catch (error) {
             message('error', 'Ha ocurrido un problema. Intente más tarde.')
         }
     }
 
-    const title = transactions?.length
+    const title = transactions.length
         ? 'Historial de movimientos'
         : 'No existen movimientos'
 
     useEffect(() => {
-        if (!transactions?.length) {
+        if (!transactions.length) {
             fetchData()
         } else {
             setLoading(false)
         }
+        //eslint-disable-next-line
     }, [])
 
     if (loading) {
@@ -38,7 +39,7 @@ const Transactions = ({ token, getTransactions, transactions }) => {
     }
 
     return (
-        <section>
+        <section className='results'>
             <Table
                 transactions={transactions}
                 title={title}

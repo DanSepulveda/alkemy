@@ -1,17 +1,17 @@
 const initialState = {
     balance: {},
     top10: [],
-    allTransactions: []
+    allTransactions: [],
 }
 
 const transactionsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'CREATE':
-            console.log('llego')
+            console.log(action.payload)
             return {
                 ...state,
-                allTransactions: state.allTransactions.push(action.payload),
-                top10: state.top10.push(action.payload)
+                allTransactions: [...state.allTransactions, action.payload],
+                top10: [...state.top10, action.payload]
             }
         case 'GET_ALL':
             return {

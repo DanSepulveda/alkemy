@@ -3,15 +3,14 @@ const pool = require('../config/database')
 const budgetControllers = {
     createTransaction: async (req, res) => {
         const { description, type, amount, date, category } = req.body
-        console.log(req.body)
         const user_id = req.user[0].id
 
         try {
             // Saving transaction
-            console.log('1')
-            const transaction = await pool.query(`INSERT INTO transactions VALUES (NULL, '${description}', '${type}', '${amount}', STR_TO_DATE('${date}', '%Y-%m-%d'), '${parseInt(category)}', '${user_id}')`)
-            console.log('2')
-            res.status(200).json({ success: true, response: transaction.insertId })
+            const newTransaction = await pool.query(`INSERT INTO transactions VALUES (NULL, '${description}', '${type}', '${amount}', STR_TO_DATE('${date}', '%Y-%m-%d'), '${parseInt(category)}', '${user_id}')`)
+
+            const transaction = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id, categories.name, categories.image FROM transactions LEFT JOIN categories ON transactions.category_id=categories.id WHERE transactions.id='${newTransaction.insertId}'`)
+            res.status(200).json({ success: true, response: transaction[0] })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }
@@ -83,7 +82,7 @@ const budgetControllers = {
     deleteTransaction: async (req, res) => {
         const user_id = req.user[0].id
         try {
-            const transaction = await pool.query(`SELECT * from transactions WHERE id=${req.params.id}`)
+            const transaction = await pool.query(`SELECT * FROM transactions WHERE id=${req.params.id}`)
 
             // Error if transaction doesn't exist
             if (!transaction.length) throw new Error("Access denied")
@@ -92,7 +91,7 @@ const budgetControllers = {
             if (user_id != transaction[0].user_id) throw new Error('Access denied')
 
             await pool.query(`DELETE FROM transactions WHERE id='${req.params.id}'`)
-            res.status(200).json({ success: true, response: 'Transaction deleted successfully' })
+            res.status(200).json({ success: true, response: 'Transacción eliminada' })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }

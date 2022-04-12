@@ -14,12 +14,11 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token 
     const addTransaction = async (values) => {
         try {
             const response = await createTransaction(values, token)
-            console.log(response)
             if (response.success) {
                 message('success', 'Transacción creada correctamente')
                 setForm(false)
             } else {
-                throw new Error
+                throw new Error()
             }
         } catch (error) {
             message('error', 'Ha ocurrido un error. Intente más tarde.')
@@ -28,6 +27,7 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token 
 
     useEffect(() => {
         getCategories()
+        //eslint-disable-next-line
     }, [])
 
     const defaultValues = true === '/login'
