@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import NavBox from './NavBox'
 import { connect } from 'react-redux'
 
@@ -7,7 +7,7 @@ const Navbar = ({ username }) => {
     const [open, setOpen] = useState(false)
 
     return (
-        <header>
+        <header className='bg-main flex-cc'>
             <nav>
                 <NavLink to='/'>Inicio</NavLink>
                 <NavLink to='/details'>Transacciones</NavLink>

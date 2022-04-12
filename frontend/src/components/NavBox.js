@@ -50,7 +50,7 @@ const NavBox = ({ id, token, email, logout, deleteUser }) => {
     }
 
     return (
-        <div className='navbox flex-column'>
+        <div className='navbox flex-column bg-main bradius5'>
             <p className='email'>{email}</p>
             <p className='delete' onClick={confirmation}>
                 Borrar cuenta

@@ -39,7 +39,7 @@ a.active {
     user-select: none;
 }
 
-button {
+form button {
     width: 100%;
     padding: .7em 0;
     color: white;
@@ -56,6 +56,17 @@ button {
 
 button:hover {
     background-color: #1ab186b8;
+}
+
+label {
+    display: inline-block;
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: var(--green);
+}
+
+option {
+    color: var(--main);
 }
 
 /* GENERAL CLASSES */
@@ -94,26 +105,32 @@ button:hover {
 
 /* NAVBAR */
 header {
-    background-color: var(--main);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between !important;
     padding: 0 2em;
     height: 8vh;
     color: #ccc;
 }
 
 header i {
-    color: #ccc;
     font-size: 40px;
     cursor: pointer;
+    transition: all 300ms;
 }
 
-header a {
+header i:hover {
+    color: white;
+}
+
+nav a {
     color: white;
     text-decoration: none;
     margin-right: 1em;
     color: #ccc;
+    transition: all 300ms;
+}
+
+nav a:hover {
+    color: #eee;
 }
 
 nav a.active {
@@ -122,38 +139,40 @@ nav a.active {
     font-weight: bold;
 }
 
-header span.greeting {
+span.greeting {
     margin-right: 1em;
 }
 
 /* NAVBOX */
 div.navbox {
-    background-color: #ccc;
     position: absolute;
     top: 8.5vh;
     right: 2em;
     align-items: center;
     padding: 1em;
-    border-radius: 5px;
 }
 
 header p {
     padding: .8em .5em;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #777;
     width: 100%;
     text-align: center;
     cursor: pointer;
-    color: #444;
+    transition: all 300ms;
 }
 
 p.email {
     padding-top: 0;
     cursor: initial;
-    color: #666;
+    color: #ccc;
 }
 
 p.delete {
     font-size: 14px;
+    color: tomato;
+}
+
+p.delete:hover {
     color: red;
 }
 
@@ -163,8 +182,11 @@ p.close {
 }
 
 p.close:hover {
-    color: #333;
+    color: white;
 }
+
+
+
 
 .main {
     background-color: var(--secondary);
@@ -251,8 +273,6 @@ div.input div {
 div.input span {
     color: #1ab186bb;
 }
-
-
 
 /* BALANCE */
 .card {
@@ -410,16 +430,6 @@ section.new-transaction {
     left: 0;
 }
 
-label {
-    font-size: 15px;
-    margin-bottom: 10px;
-    color: var(--green);
-}
-
-option {
-    color: var(--main);
-}
-
 section.new-transaction>div {
     min-width: 30vw;
     min-height: 80vh;
@@ -558,5 +568,9 @@ div.dot5 {
 @media (max-width: 576px) {
     div.box {
         width: 80vw;
+    }
+
+    span.greeting {
+        display: none;
     }
 }
