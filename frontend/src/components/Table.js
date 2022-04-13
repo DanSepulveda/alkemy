@@ -8,9 +8,12 @@ const Table = ({ transactions, title }) => {
     const path = useLocation().pathname
     const [form, setForm] = useState(false)
 
+    console.log(transactions)
+
     return (
         <section className='flex-column'>
             {form && <NewForm setForm={setForm} />}
+            {transactions.length && path === '/details' ? <button>Agregar</button> : null}
             <h1>{title}</h1>
             {path === '/details' && transactions.length ? <Filters /> : null}
             {!transactions.length

@@ -22,8 +22,6 @@ const Resume = ({ token, getResume, top10 }) => {
         }
     }
 
-    console.log(top10)
-
     const title = top10.length === 1
         ? 'Único registro'
         : top10.length > 1

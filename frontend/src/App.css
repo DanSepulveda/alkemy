@@ -222,95 +222,6 @@ section.results h1 {
     margin-bottom: 1em;
 }
 
-
-
-
-/* SIGNUP/LOGIN VIEW */
-section.login-container {
-    min-height: 100vh;
-}
-
-div.box {
-    min-height: 75vh;
-    min-width: 30vw;
-    padding: 1.5em;
-}
-
-div.box h1 {
-    margin: 1em 0;
-    flex: 1;
-}
-
-div.buttons {
-    width: 100%;
-    justify-content: space-between;
-    gap: 1em;
-}
-
-div.buttons a {
-    width: 50%;
-    padding: .7em 0;
-    text-align: center;
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    background-color: #1ab1864c;
-    transition: all 300ms;
-}
-
-div.buttons a.active {
-    background-color: var(--green);
-}
-
-div.buttons a:not(.active):hover {
-    background-color: #1ab1869d;
-}
-
-/* INPUT COMPONENT */
-div.input {
-    width: 100%;
-}
-
-div.input input,
-select {
-    width: 100%;
-    background-color: transparent;
-    color: whitesmoke;
-    border: 2px solid #ccc;
-    padding: .8em 2em;
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-section.new-transaction input,
-section.new-transaction select {
-    padding: .4em 1em;
-    font-size: 16px;
-}
-
-div.input input::placeholder {
-    color: #ccc;
-}
-
-div.input input:focus,
-select {
-    border: 2px solid whitesmoke;
-    outline: none;
-}
-
-div.input div {
-    min-height: 25px;
-    margin-bottom: .5em;
-}
-
-div.input span {
-    color: #1ab186bb;
-}
-
-
-
-
-
 /* ROW */
 div.row {
     width: 100%;
@@ -320,34 +231,36 @@ div.row {
     padding: .5em 1em;
     border-radius: 5px;
     display: flex;
+    flex-wrap: wrap;
 }
 
-div.row>div:first-child,
+div.date,
 section.filters>div:first-child {
     width: 15%;
 }
 
-div.row>div:nth-child(2),
+div.type,
 section.filters>div:nth-child(2) {
     width: 5%;
 }
 
-div.row>div:nth-child(3),
+div.category,
 section.filters>div:nth-child(3) {
     width: 10%;
 }
 
-div.row>div:nth-child(4),
+div.description,
 section.filters>div:nth-child(4) {
-    width: 50%;
+    flex: 1;
+    align-items: flex-start;
 }
 
-div.row>div:nth-child(5),
+div.amount,
 section.filters>div:nth-child(5) {
     width: 10%;
 }
 
-div.row>div:last-child {
+div.actions {
     width: 10%;
 }
 
@@ -405,6 +318,58 @@ span.icontool:hover span.border {
     color: var(--main);
 }
 
+
+
+
+
+
+/* INPUT COMPONENT */
+div.input {
+    width: 100%;
+}
+
+div.input input,
+select {
+    width: 100%;
+    background-color: transparent;
+    color: whitesmoke;
+    border: 2px solid #ccc;
+    padding: .8em 2em;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+section.new-transaction input,
+section.new-transaction select {
+    padding: .4em 1em;
+    font-size: 16px;
+}
+
+div.input input::placeholder {
+    color: #ccc;
+}
+
+div.input input:focus,
+select {
+    border: 2px solid whitesmoke;
+    outline: none;
+}
+
+div.input div {
+    min-height: 25px;
+    margin-bottom: .5em;
+}
+
+div.input span {
+    color: #1ab186bb;
+}
+
+
+
+
+
+
+
 /* FILTERS */
 .filters {
     margin-bottom: 1em;
@@ -455,6 +420,47 @@ section.new-transaction i {
 
 section.new-transaction i:hover {
     color: tomato;
+}
+
+/* SIGNUP/LOGIN VIEW */
+section.login-container {
+    min-height: 100vh;
+}
+
+div.box {
+    min-height: 75vh;
+    min-width: 30vw;
+    padding: 1.5em;
+}
+
+div.box h1 {
+    margin: 1em 0;
+    flex: 1;
+}
+
+div.buttons {
+    width: 100%;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+div.buttons a {
+    width: 50%;
+    padding: .7em 0;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: #1ab1864c;
+    transition: all 300ms;
+}
+
+div.buttons a.active {
+    background-color: var(--green);
+}
+
+div.buttons a:not(.active):hover {
+    background-color: #1ab1869d;
 }
 
 /* LOADER */
@@ -561,11 +567,142 @@ div.dot5 {
     div.box {
         width: 40vw;
     }
+
+    div.row {
+        width: 100%;
+        flex-wrap: wrap;
+        padding: 1em;
+        margin-bottom: 1em;
+    }
+
+    div.row>div {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    div.row span.title {
+        margin-bottom: 0;
+        margin-right: .5em;
+    }
+
+    div.date,
+    section.filters>div:first-child {
+        flex: 1;
+        order: 2;
+    }
+
+    div.type,
+    section.filters>div:nth-child(2) {
+        width: 15%;
+        justify-content: flex-start;
+        order: 3;
+    }
+
+    div.category,
+    section.filters>div:nth-child(3) {
+        width: 20%;
+        justify-content: flex-start;
+        order: 4;
+    }
+
+    div.description,
+    section.filters>div:nth-child(4) {
+        order: 6;
+        width: 100%;
+        margin-top: 5px;
+        flex: unset;
+    }
+
+    div.amount,
+    section.filters>div:nth-child(5) {
+        width: 20%;
+        justify-content: space-between;
+        order: 5;
+    }
+
+    div.actions,
+    section.filters>div:nth-child(6) {
+        order: 7;
+        width: 100%;
+        justify-content: center;
+        margin-top: .8em;
+        padding-top: .8em;
+        border-top: 1px solid var(--secondary);
+    }
+
+    div.actions span.title {
+        display: none;
+    }
+
+    div.actions i {
+        font-size: 20px;
+        opacity: 70%;
+    }
 }
 
 @media (max-width: 768px) {
     div.box {
         width: 55vw;
+    }
+
+    div.row span.title {
+        margin-bottom: 0;
+        margin-right: .5em;
+        display: none;
+    }
+
+    div.date,
+    section.filters>div:first-child {
+        width: 50%;
+        order: 3;
+        margin-top: 5px;
+    }
+
+    div.type,
+    section.filters>div:nth-child(2) {
+        width: 50%;
+        order: 1;
+    }
+
+    div.category,
+    section.filters>div:nth-child(3) {
+        width: 50%;
+        justify-content: flex-end;
+        order: 2;
+    }
+
+    div.description,
+    section.filters>div:nth-child(4) {
+        order: 5;
+        width: 100%;
+        flex: unset;
+    }
+
+    div.amount,
+    section.filters>div:nth-child(5) {
+        width: 50%;
+        justify-content: flex-end;
+        order: 4;
+        margin-top: 5px;
+    }
+
+    div.actions,
+    section.filters>div:nth-child(6) {
+        order: 6;
+        width: 100%;
+        justify-content: center;
+        margin-top: .8em;
+        padding-top: .8em;
+        border-top: 1px solid var(--secondary);
+    }
+
+    div.actions span.title {
+        display: none;
+    }
+
+    div.actions i {
+        font-size: 20px;
+        opacity: 70%;
     }
 }
 
