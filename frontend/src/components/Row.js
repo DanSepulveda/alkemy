@@ -17,7 +17,7 @@ const Row = ({ transaction, deleteTransaction, token }) => {
         try {
             const response = await deleteTransaction(id, token)
             if (response.success) {
-                message('success', 'd')
+                message('success', response.response)
             } else {
                 throw new Error()
             }

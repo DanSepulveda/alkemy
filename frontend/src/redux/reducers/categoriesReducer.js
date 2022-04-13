@@ -4,7 +4,7 @@ const initialState = {
 
 const categoriesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_ALL':
+        case 'GET_CATEGORIES':
             return {
                 categories: action.payload
             }

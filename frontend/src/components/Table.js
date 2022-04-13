@@ -8,12 +8,17 @@ const Table = ({ transactions, title }) => {
     const path = useLocation().pathname
     const [form, setForm] = useState(false)
 
-    console.log(transactions)
-
     return (
         <section className='flex-column'>
             {form && <NewForm setForm={setForm} />}
-            {transactions.length && path === '/details' ? <button>Agregar</button> : null}
+            {transactions.length && path === '/details'
+                ? <div className='new-transaction flex-cc'>
+                    <button onClick={() => setForm(true)} >
+                        Nueva transacción
+                    </button>
+                </div>
+                : null
+            }
             <h1>{title}</h1>
             {path === '/details' && transactions.length ? <Filters /> : null}
             {!transactions.length

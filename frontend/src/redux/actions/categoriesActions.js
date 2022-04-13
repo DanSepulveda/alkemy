@@ -7,7 +7,7 @@ const categoriesActions = {
         return async (dispatch) => {
             const response = await axios.get(`${HOST}/categories`)
             if (response.data.success) {
-                dispatch({ type: 'GET_ALL', payload: response.data.response })
+                dispatch({ type: 'GET_CATEGORIES', payload: response.data.response })
             }
             return response.data
         }

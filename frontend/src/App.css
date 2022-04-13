@@ -39,7 +39,8 @@ a.active {
     user-select: none;
 }
 
-form button {
+form button,
+div.new-transaction button {
     width: 100%;
     padding: .7em 0;
     color: white;
@@ -54,7 +55,8 @@ form button {
     letter-spacing: 1px;
 }
 
-button:hover {
+button:hover,
+div.new-transaction button:hover {
     background-color: #1ab186b8;
 }
 
@@ -222,6 +224,17 @@ section.results h1 {
     margin-bottom: 1em;
 }
 
+div.new-transaction {
+    margin-top: 2em;
+}
+
+div.new-transaction button {
+    width: auto;
+    font-size: 17px;
+    padding: 1em 2em;
+    border-radius: 6em;
+}
+
 /* ROW */
 div.row {
     width: 100%;
@@ -318,11 +331,6 @@ span.icontool:hover span.border {
     color: var(--main);
 }
 
-
-
-
-
-
 /* INPUT COMPONENT */
 div.input {
     width: 100%;
@@ -364,12 +372,6 @@ div.input span {
     color: #1ab186bb;
 }
 
-
-
-
-
-
-
 /* FILTERS */
 .filters {
     margin-bottom: 1em;
@@ -379,14 +381,15 @@ div.input span {
 }
 
 /* ADD ICON */
-div.add-icon {
-    background-color: red;
-}
-
 .fa-plus-circle {
     font-size: 50px;
     color: var(--green);
     cursor: pointer;
+    transition: all 300ms;
+}
+
+.fa-plus-circle:hover {
+    color: #1ab186b8;
 }
 
 /* NEW TRANSACTION FORM */
@@ -651,43 +654,37 @@ div.dot5 {
         display: none;
     }
 
-    div.date,
-    section.filters>div:first-child {
+    div.date {
         width: 50%;
         order: 3;
         margin-top: 5px;
     }
 
-    div.type,
-    section.filters>div:nth-child(2) {
+    div.type {
         width: 50%;
         order: 1;
     }
 
-    div.category,
-    section.filters>div:nth-child(3) {
+    div.category {
         width: 50%;
         justify-content: flex-end;
         order: 2;
     }
 
-    div.description,
-    section.filters>div:nth-child(4) {
+    div.description {
         order: 5;
         width: 100%;
         flex: unset;
     }
 
-    div.amount,
-    section.filters>div:nth-child(5) {
+    div.amount {
         width: 50%;
         justify-content: flex-end;
         order: 4;
         margin-top: 5px;
     }
 
-    div.actions,
-    section.filters>div:nth-child(6) {
+    div.actions {
         order: 6;
         width: 100%;
         justify-content: center;
