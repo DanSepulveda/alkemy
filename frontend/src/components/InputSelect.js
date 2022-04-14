@@ -1,13 +1,15 @@
-import { Field } from 'formik'
+import { useField } from 'formik'
 
-const InputSelect = ({ label, name, children, ...props }) => {
+const InputSelect = ({ label, ...props }) => {
+    const [field, meta] = useField(props)
     return (
         <div className='input'>
-            {label && <label htmlFor={name}>{label}</label>}
-            <Field name={name} as='select' id={name} {...props}>
-                {children}
-            </Field>
-            <div><span></span></div>
+            {label && <label htmlFor={props.name}>{label}</label>}
+
+            <select name={props.name} {...field} {...props}>
+                {props.children}
+            </select>
+            <div><span>{meta.touched && meta.error ? `* ${meta.error}` : null}</span></div>
         </div>
     )
 }

@@ -7,6 +7,7 @@ import categoriesActions from '../redux/actions/categoriesActions'
 import transactionsActions from '../redux/actions/transactionsActions'
 import { connect } from 'react-redux'
 import message from '../utils/message'
+import capitalize from '../utils/capitalize'
 
 const NewForm = ({ setForm, getCategories, categories, createTransaction, token }) => {
     const [cat, setCat] = useState('income')
@@ -31,19 +32,15 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token 
     }, [])
 
     const defaultValues = true === '/login'
-        ? { date: '', type: '', category: 'health', description: '', amount: '' }
-        : { date: '', type: '', category: 'health', description: '', amount: '' }
+        ? { date: '', type: '', category: '', description: '', amount: '' }
+        : { date: '', type: '', category: '', description: '', amount: '' }
 
     const validationSchema = {
         date: Yup.date().required('Campo requerido'),
         type: Yup.string().required('Campo requerido'),
         category: Yup.number().required('Campo requerido'),
-        description: Yup.string()
-            .min(6, 'Contraseña demasiado corta')
-            .required('Campo requerido'),
-        amount: Yup.number()
-            .positive('Debe ingresar un valor positivo')
-            .required('Campo requerido'),
+        description: Yup.string().required('Campo requerido'),
+        amount: Yup.number().positive('Debe ingresar un valor positivo').required('Campo requerido')
     }
 
     return (
@@ -65,18 +62,20 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token 
                             type='date'
                         />
 
-                        <InputSelect label='Tipo de operación' name='type' onChangeCapture={(e) => setCat(e.target.value)}>
+                        <InputSelect label='Tipo de operación' name='type' onChangeCapture={(e) => setCat(e.target.value)} id='type'>
+                            <option value="" disabled>Seleccionar tipo</option>
                             <option value='income' onClick={() => alert('income')}>Ingreso</option>
                             <option value='expense' onClick={() => setCat('expense')}>Gasto</option>
                         </InputSelect>
 
                         <InputSelect label='Categoría' name='category'>
+                            <option value="" disabled>Seleccionar categoría</option>
                             {categories.filter(category => category.type === cat).map(category =>
                                 <option
                                     value={category.id}
                                     key={category.id}
                                 >
-                                    {category.name.toUpperCase()}
+                                    {capitalize(category.name)}
                                 </option>)
                             }
                         </InputSelect>

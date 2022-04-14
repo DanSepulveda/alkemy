@@ -29,8 +29,8 @@ const Row = ({ transaction, deleteTransaction, token }) => {
     return (
         <div className='row'>
             <Cell title='Fecha' data={(new Date(date)).toLocaleDateString()} selector='date' />
-            <ToolCell title={'Tipo'} icon={icon} name={type.toUpperCase()} selector='type' />
-            <ToolCell title={'Categoría'} icon={image} name={name.toUpperCase()} selector='category' />
+            <ToolCell title={'Tipo'} icon={icon} name={type === 'income' ? 'ingreso' : 'gasto'} selector='type' />
+            <ToolCell title={'Categoría'} icon={image} name={name} selector='category' />
             <Cell title={'Descripción'} data={description} selector='description' />
             <Cell title={'Monto'} data={formatter.format(amount)} selector='amount' />
             {path === '/details' && <div className='flex-column-center actions'>

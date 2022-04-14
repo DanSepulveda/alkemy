@@ -425,6 +425,15 @@ section.new-transaction i:hover {
     color: tomato;
 }
 
+option {
+    background-color: var(--secondary);
+    color: white;
+}
+
+option:disabled {
+    color: #ccc;
+}
+
 /* SIGNUP/LOGIN VIEW */
 section.login-container {
     min-height: 100vh;
