@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import message from '../utils/message'
 import capitalize from '../utils/capitalize'
 
-const NewForm = ({ setForm, getCategories, categories, createTransaction, token, editMode, transaction }) => {
+const NewForm = ({ setForm, getCategories, categories, createTransaction, token, editMode, transaction, editTransaction }) => {
     const [cat, setCat] = useState('income')
 
     const addTransaction = async (values) => {
@@ -26,6 +26,25 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
         }
     }
 
+    const edit = async (values) => {
+        const isEdited = Object.keys(values).some(key => values[key] !== defaultValues[key])
+        if (isEdited) {
+            try {
+                const response = await editTransaction(transaction.id, values, token)
+                if (response.success) {
+                    message('success', 'Cambios guardados correctamente')
+                    setForm({ open: false, editMode: false, data: null })
+                } else {
+                    throw new Error()
+                }
+            } catch (error) {
+                message('error', error.message)
+            }
+        } else {
+            message('warning', 'No hay cambios para guardar')
+        }
+    }
+
     useEffect(() => {
         getCategories()
         if (editMode) {
@@ -36,7 +55,6 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
 
     const defaultValues = editMode
         ? {
-            // date: transaction?.date,
             date: (new Date(transaction?.date)).toISOString().split('T')[0],
             type: transaction?.type,
             category: transaction?.category_id,
@@ -56,21 +74,17 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
     return (
         <section className='new-transaction flex-cc'>
             <div>
-                <div className='flex-cc'>
+                <div className='flex-cc' style={{ 'justifyContent': 'space-between' }}>
+                    <h2>{editMode ? 'Editar transacción' : 'Nueva transacción'}</h2>
                     <i className='fas fa-times-circle' onClick={() => setForm({ open: false, editMode: false, data: null })}></i>
                 </div>
                 <Formik
                     initialValues={defaultValues}
                     validationSchema={Yup.object(validationSchema)}
-                    onSubmit={values => addTransaction(values)}
+                    onSubmit={values => editMode ? edit(values) : addTransaction(values)}
                 >
                     <Form className='flex-column'>
-                        <InputText
-                            name='date'
-                            id='date'
-                            label='Fecha'
-                            type='date'
-                        />
+                        <InputText name='date' id='date' label='Fecha' type='date' />
 
                         <InputSelect
                             label='Tipo de operación'
@@ -79,13 +93,13 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
                             id='type'
                             disabled={editMode ? true : false}
                         >
-                            <option value="" disabled>Seleccionar tipo</option>
+                            <option value='' disabled>Seleccionar tipo</option>
                             <option value='income' onClick={() => alert('income')}>Ingreso</option>
                             <option value='expense' onClick={() => setCat('expense')}>Gasto</option>
                         </InputSelect>
 
                         <InputSelect label='Categoría' name='category'>
-                            <option value="" disabled>Seleccionar categoría</option>
+                            <option value='' disabled>Seleccionar categoría</option>
                             {categories.filter(category => category.type === cat).map(category =>
                                 <option
                                     value={category.id}
@@ -96,21 +110,10 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
                             }
                         </InputSelect>
 
-                        <InputText
-                            name='amount'
-                            id='amount'
-                            placeholder='Ej: 8000'
-                            label='Monto'
-                            type='number'
-                        />
-                        <InputText
-                            name='description'
-                            id='description'
-                            placeholder='Ej: cuenta de luz'
-                            label='Descripción'
-                        />
+                        <InputText name='amount' id='amount' placeholder='Ej: 8000' label='Monto' type='number' />
+                        <InputText name='description' id='description' placeholder='Ej: cuenta de luz' label='Descripción' />
                         <button type='submit' id='send'>
-                            Guardar
+                            {editMode ? 'Editar' : 'Guardar'}
                         </button>
                     </Form>
                 </Formik>
@@ -128,7 +131,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     getCategories: categoriesActions.getCategories,
-    createTransaction: transactionsActions.createTransaction
+    createTransaction: transactionsActions.createTransaction,
+    editTransaction: transactionsActions.editTransaction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewForm)

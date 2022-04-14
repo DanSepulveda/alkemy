@@ -42,6 +42,19 @@ const transactionsActions = {
             return response.data
         }
     },
+    editTransaction: (id, values, token) => {
+        return async (dispatch) => {
+            const response = await axios.put(`${HOST}/transaction/${id}`, values, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (response.data.success) {
+                dispatch({ type: 'EDIT_TRANSACTION', payload: response.data.response })
+            }
+            return response.data
+        }
+    },
     deleteTransaction: (id, token) => {
         return async (dispatch) => {
             const response = await axios.delete(`${HOST}/transaction/${id}`, {

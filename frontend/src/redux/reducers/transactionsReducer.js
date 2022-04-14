@@ -34,6 +34,21 @@ const transactionsReducer = (state = initialState, action) => {
                 top10: action.payload.top10,
                 top10Fetched: true
             }
+        case 'EDIT_TRANSACTION':
+            const editedTransaction = action.payload
+
+            let updatedTransactions = JSON.parse(JSON.stringify(state.allTransactions)).filter(transaction => transaction.id !== editedTransaction.id)
+            updatedTransactions.push(editedTransaction)
+            updatedTransactions.sort((a, b) => a.date - b.date)
+            return {
+                ...state,
+                allTransactions: updatedTransactions,
+                top10: updatedTransactions.slice(0, 10),
+                balance: {
+                    total_expenses: reduce(updatedTransactions, 'expense'),
+                    total_income: reduce(updatedTransactions, 'income')
+                }
+            }
         case 'DELETE':
             const updated = state.allTransactions.filter(transaction => transaction.id !== action.payload)
             return {
