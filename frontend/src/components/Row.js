@@ -7,7 +7,7 @@ import Cell from './Cell'
 import ToolCell from './ToolCell'
 import { useLocation } from 'react-router-dom'
 
-const Row = ({ transaction, deleteTransaction, token }) => {
+const Row = ({ transaction, deleteTransaction, token, setForm }) => {
     const { id, date, type, name, image, description, amount } = transaction
     const path = useLocation().pathname
 
@@ -39,6 +39,7 @@ const Row = ({ transaction, deleteTransaction, token }) => {
                     <ToolCell
                         icon={'edit'}
                         name={'Editar'}
+                        fx={() => setForm({ open: true, editMode: true, data: transaction })}
                     />
                     <ToolCell
                         icon={'trash-alt'}

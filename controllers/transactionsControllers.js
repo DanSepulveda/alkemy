@@ -85,10 +85,10 @@ const budgetControllers = {
             const transaction = await pool.query(`SELECT * FROM transactions WHERE id=${req.params.id}`)
 
             // Error if transaction doesn't exist
-            if (!transaction.length) throw new Error("Access denied")
+            if (!transaction.length) throw new Error("Acceso denegado")
 
             // Checking if transaction belongs to user
-            if (user_id != transaction[0].user_id) throw new Error('Access denied')
+            if (user_id != transaction[0].user_id) throw new Error('Accesso denegado')
 
             await pool.query(`DELETE FROM transactions WHERE id='${req.params.id}'`)
             res.status(200).json({ success: true, response: 'Transacción eliminada' })

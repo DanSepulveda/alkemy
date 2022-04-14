@@ -6,14 +6,14 @@ import Row from './Row'
 
 const Table = ({ transactions, title }) => {
     const path = useLocation().pathname
-    const [form, setForm] = useState(false)
+    const [form, setForm] = useState({ open: false, editMode: false, data: null })
 
     return (
         <section className='flex-column'>
-            {form && <NewForm setForm={setForm} />}
+            {form.open && <NewForm setForm={setForm} editMode={form.editMode} transaction={form.data} />}
             {path === '/details'
                 ? <div className='new-transaction flex-cc'>
-                    <button onClick={() => setForm(true)} >
+                    <button onClick={() => setForm({ open: true, editMode: false, data: null })} >
                         Nueva transacción
                     </button>
                 </div>
@@ -34,6 +34,7 @@ const Table = ({ transactions, title }) => {
                 <Row
                     key={transaction.id}
                     transaction={transaction}
+                    setForm={setForm}
                 />
             )}
         </section>

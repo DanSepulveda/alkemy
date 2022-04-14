@@ -375,6 +375,11 @@ select {
     margin-bottom: 5px;
 }
 
+select:disabled {
+    border: none;
+    appearance: none;
+}
+
 section.new-transaction input,
 section.new-transaction select {
     padding: .4em 1em;
@@ -435,6 +440,7 @@ section.new-transaction>div {
     min-height: 80vh;
     background-color: var(--main);
     padding: 1em 2em;
+    z-index: 100;
 }
 
 section.new-transaction>div>div {

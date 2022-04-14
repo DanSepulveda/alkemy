@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import message from '../utils/message'
 import capitalize from '../utils/capitalize'
 
-const NewForm = ({ setForm, getCategories, categories, createTransaction, token }) => {
+const NewForm = ({ setForm, getCategories, categories, createTransaction, token, editMode, transaction }) => {
     const [cat, setCat] = useState('income')
 
     const addTransaction = async (values) => {
@@ -28,11 +28,21 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token 
 
     useEffect(() => {
         getCategories()
+        if (editMode) {
+            setCat(transaction.type)
+        }
         //eslint-disable-next-line
     }, [])
 
-    const defaultValues = true === '/login'
-        ? { date: '', type: '', category: '', description: '', amount: '' }
+    const defaultValues = editMode
+        ? {
+            // date: transaction?.date,
+            date: (new Date(transaction?.date)).toISOString().split('T')[0],
+            type: transaction?.type,
+            category: transaction?.category_id,
+            description: transaction?.description,
+            amount: transaction?.amount
+        }
         : { date: '', type: '', category: '', description: '', amount: '' }
 
     const validationSchema = {
@@ -47,7 +57,7 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token 
         <section className='new-transaction flex-cc'>
             <div>
                 <div className='flex-cc'>
-                    <i className='fas fa-times-circle' onClick={() => setForm(false)}></i>
+                    <i className='fas fa-times-circle' onClick={() => setForm({ open: false, editMode: false, data: null })}></i>
                 </div>
                 <Formik
                     initialValues={defaultValues}
@@ -62,7 +72,13 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token 
                             type='date'
                         />
 
-                        <InputSelect label='Tipo de operación' name='type' onChangeCapture={(e) => setCat(e.target.value)} id='type'>
+                        <InputSelect
+                            label='Tipo de operación'
+                            name='type'
+                            onChangeCapture={(e) => setCat(e.target.value)}
+                            id='type'
+                            disabled={editMode ? true : false}
+                        >
                             <option value="" disabled>Seleccionar tipo</option>
                             <option value='income' onClick={() => alert('income')}>Ingreso</option>
                             <option value='expense' onClick={() => setCat('expense')}>Gasto</option>
