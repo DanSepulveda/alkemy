@@ -11,7 +11,9 @@ const initialState = {
 const transactionsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'CREATE_TRANSACTION':
-            const newTransactions = [...state.allTransactions, action.payload].sort((a, b) => a.date - b.date)
+            let newTransactions = JSON.parse(JSON.stringify(state.allTransactions))
+            newTransactions.push(action.payload)
+            newTransactions = newTransactions.sort((a, b) => new Date(b.date) - new Date(a.date))
             return {
                 ...state,
                 allTransactions: newTransactions,

@@ -296,9 +296,18 @@ section.filters>div:nth-child(4) {
     align-items: flex-start;
 }
 
-div.amount,
+div.amount-expense,
+div.amount-income,
 section.filters>div:nth-child(5) {
     width: 10%;
+}
+
+div.amount-expense span:last-child {
+    color: tomato;
+}
+
+div.amount-income span:last-child {
+    color: green;
 }
 
 div.actions {
@@ -331,15 +340,15 @@ span.tooltip {
     display: none;
 }
 
-span.icontool {
+div.icontool {
     cursor: pointer;
 }
 
-span.icontool i {
+div.icontool i {
     font-size: 25px;
 }
 
-span.icontool:hover span.tooltip {
+div.icontool:hover span.tooltip {
     display: block;
     position: absolute;
     background-color: var(--main);
@@ -351,8 +360,13 @@ span.icontool:hover span.tooltip {
     margin-left: 30px;
 }
 
-span.icontool:hover span.border {
+div.icontool:hover span.border {
     margin-left: -60px;
+}
+
+div.category div.icontool:hover span.tooltip {
+    margin-top: -35px;
+    margin-left: 50px;
 }
 
 .fa-edit {
@@ -405,24 +419,16 @@ div.input span {
     color: #1ab186bb;
 }
 
+input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
 /* FILTERS */
 .filters {
     margin-bottom: 1em;
     display: flex;
     width: 100%;
     padding: 0 1em;
-}
-
-/* ADD ICON */
-.fa-plus-circle {
-    font-size: 50px;
-    color: var(--green);
-    cursor: pointer;
-    transition: all 300ms;
-}
-
-.fa-plus-circle:hover {
-    color: #1ab186b8;
 }
 
 /* NEW TRANSACTION FORM */
@@ -507,6 +513,73 @@ div.buttons a.active {
 
 div.buttons a:not(.active):hover {
     background-color: #1ab1869d;
+}
+
+/* ICONS */
+div.category .icontool>div {
+    width: 45px;
+    height: 45px;
+}
+
+div.icontool div {
+    color: #ddd;
+    border-radius: 100%;
+}
+
+div.bus {
+    background-color: #FF6B6B;
+}
+
+div.dog {
+    background-color: #4D96FF;
+}
+
+div.hamburger {
+    background-color: #6BCB77;
+}
+
+div.gift {
+    background-color: #F190B7;
+}
+
+div.graduation-cap {
+    background-color: #383838;
+}
+
+div.home {
+    background-color: #F0A500;
+}
+
+div.wallet {
+    background-color: #733C3C;
+}
+
+div.heartbeat {
+    background-color: #9254C8;
+}
+
+div.users {
+    background-color: #a78a5f;
+}
+
+div.tshirt {
+    background-color: #143F6B;
+}
+
+div.receipt {
+    background-color: #FF8080;
+}
+
+div.question {
+    background-color: #006778;
+}
+
+div.money-bill {
+    background-color: #461111;
+}
+
+div.university {
+    background-color: #886F6F;
 }
 
 /* LOADER */
@@ -659,8 +732,8 @@ div.dot5 {
         flex: unset;
     }
 
-    div.amount,
-    section.filters>div:nth-child(5) {
+    div.amount-expense,
+    div.amount-income section.filters>div:nth-child(5) {
         width: 20%;
         justify-content: space-between;
         order: 5;
@@ -720,7 +793,8 @@ div.dot5 {
         flex: unset;
     }
 
-    div.amount {
+    div.amount-expense,
+    div.amount-income {
         width: 50%;
         justify-content: flex-end;
         order: 4;
