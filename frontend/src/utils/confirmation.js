@@ -12,7 +12,7 @@ const confirmation = (question, button, success, task) => {
     }).then(async (result) => {
         if (result.isConfirmed) {
             await task()
-            Swal.fire(
+            success && Swal.fire(
                 '',
                 success,
                 'success'

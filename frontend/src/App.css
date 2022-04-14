@@ -213,9 +213,18 @@ div.card-content span {
     font-weight: bold;
 }
 
+span.red {
+    color: tomato;
+}
+
+span.green {
+    color: green;
+}
+
 /* TABLE */
 section.results {
     padding: 0 2em;
+    padding-bottom: 2em;
 }
 
 section.results h1 {
@@ -235,11 +244,30 @@ div.new-transaction button {
     border-radius: 6em;
 }
 
+a.create {
+    color: #ccc;
+    text-decoration: none;
+    text-align: center;
+    font-size: 30px;
+    background-color: #1ab186b8;
+    padding: .3em .5em;
+    border-radius: 30px;
+    transition: all 300ms;
+}
+
+a.create:hover {
+    background-color: var(--green);
+}
+
+a.create i {
+    margin-left: 10px;
+}
+
 /* ROW */
 div.row {
     width: 100%;
     background-color: #ccc;
-    margin-bottom: .5em;
+    margin-bottom: 1em;
     color: var(--main);
     padding: .5em 1em;
     border-radius: 5px;
@@ -296,7 +324,7 @@ div.row span.title {
 
 .fa-arrow-down,
 .fa-trash-alt {
-    color: red;
+    color: tomato;
 }
 
 span.tooltip {

@@ -6,7 +6,7 @@ import Balance from './Balance'
 import transactionsActions from '../redux/actions/transactionsActions'
 import { connect } from 'react-redux'
 
-const Resume = ({ token, getResume, top10 }) => {
+const Resume = ({ token, getResume, top10, fetched }) => {
     const [loading, setLoading] = useState(true)
 
     const fetchData = async () => {
@@ -22,14 +22,12 @@ const Resume = ({ token, getResume, top10 }) => {
         }
     }
 
-    const title = top10.length === 1
-        ? 'Único registro'
-        : top10.length > 1
-            ? `Últimos ${top10.length} registros`
-            : 'No existen movimientos'
+    const title = !top10.length
+        ? 'No existen movimientos'
+        : `Últimos registros (${top10.length})`
 
     useEffect(() => {
-        if (!top10.length) {
+        if (!fetched) {
             fetchData()
         } else {
             setLoading(false)
@@ -55,7 +53,8 @@ const Resume = ({ token, getResume, top10 }) => {
 const mapStateToProps = state => {
     return {
         token: state.users.token,
-        top10: state.transactions.top10
+        top10: state.transactions.top10,
+        fetched: state.transactions.top10Fetched
     }
 }
 

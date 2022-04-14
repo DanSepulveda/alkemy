@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Filters from './Filters'
 import NewForm from './NewForm'
 import Row from './Row'
@@ -11,7 +11,7 @@ const Table = ({ transactions, title }) => {
     return (
         <section className='flex-column'>
             {form && <NewForm setForm={setForm} />}
-            {transactions.length && path === '/details'
+            {path === '/details'
                 ? <div className='new-transaction flex-cc'>
                     <button onClick={() => setForm(true)} >
                         Nueva transacción
@@ -21,9 +21,12 @@ const Table = ({ transactions, title }) => {
             }
             <h1>{title}</h1>
             {path === '/details' && transactions.length ? <Filters /> : null}
-            {!transactions.length
+            {!transactions.length && path === '/'
                 ? <div className='flex-cc'>
-                    <i className='fas fa-plus-circle' onClick={() => setForm(true)}></i>
+                    <Link to='/details' className='create'>
+                        Ir a crear
+                        <i class="fas fa-arrow-right"></i>
+                    </Link>
                 </div>
                 : null
             }

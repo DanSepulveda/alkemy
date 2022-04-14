@@ -5,7 +5,7 @@ import message from '../utils/message'
 import transactionsActions from '../redux/actions/transactionsActions'
 import { connect } from 'react-redux'
 
-const Transactions = ({ token, getTransactions, transactions }) => {
+const Transactions = ({ token, getTransactions, transactions, fetched }) => {
     const [loading, setLoading] = useState(true)
 
     const fetchData = async () => {
@@ -22,11 +22,11 @@ const Transactions = ({ token, getTransactions, transactions }) => {
     }
 
     const title = transactions.length
-        ? 'Historial de movimientos'
+        ? `Historial de movimientos (${transactions.length})`
         : 'No existen movimientos'
 
     useEffect(() => {
-        if (!transactions.length) {
+        if (!fetched) {
             fetchData()
         } else {
             setLoading(false)
@@ -51,7 +51,8 @@ const Transactions = ({ token, getTransactions, transactions }) => {
 const mapStateToProps = state => {
     return {
         token: state.users.token,
-        transactions: state.transactions.allTransactions
+        transactions: state.transactions.allTransactions,
+        fetched: state.transactions.allTransactionsFetched
     }
 }
 

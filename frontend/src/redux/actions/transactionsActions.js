@@ -11,7 +11,7 @@ const transactionsActions = {
                 }
             })
             if (response.data.success) {
-                dispatch({ type: 'CREATE', payload: response.data.response })
+                dispatch({ type: 'CREATE_TRANSACTION', payload: response.data.response })
             }
             return response.data
         }
@@ -24,7 +24,7 @@ const transactionsActions = {
                 }
             })
             if (response.data.success) {
-                dispatch({ type: 'GET_ALL', payload: response.data.response })
+                dispatch({ type: 'GET_TRANSACTIONS', payload: response.data.response })
             }
             return response.data
         }
@@ -37,7 +37,7 @@ const transactionsActions = {
                 }
             })
             if (response.data.success) {
-                dispatch({ type: 'RESUME', payload: response.data.response })
+                dispatch({ type: 'GET_RESUME', payload: response.data.response })
             }
             return response.data
         }

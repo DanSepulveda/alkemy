@@ -4,6 +4,10 @@ import { connect } from 'react-redux'
 const Balance = ({ balance }) => {
     const { total_income, total_expenses } = balance
 
+    const result = total_income - total_expenses
+
+    const className = result < 0 ? 'red' : 'green'
+
     return (
         <section className='card flex-cc'>
             <div className='flex-column-center bradius5 card-content'>
@@ -11,7 +15,7 @@ const Balance = ({ balance }) => {
                     <i className='fas fa-balance-scale'></i>
                     Balance
                 </h2>
-                <span>{formatter.format(total_income - total_expenses)}</span>
+                <span className={className}>{formatter.format(result)}</span>
             </div>
         </section>
     )
