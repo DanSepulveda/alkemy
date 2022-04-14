@@ -106,7 +106,7 @@ const budgetControllers = {
             } else {
                 throw new Error()
             }
-            const transactions = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id as category, categories.name as category_name, categories.image as category_image FROM transactions INNER JOIN categories ON category_id=categories.id WHERE transaction.user_id=2`)
+            const transactions = await pool.query(`SELECT * FROM transactions`)
             // const transactions = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id as category, categories.name, categories.image from transactions INNER JOIN categories ON category_id=categories.id ORDER BY date DESC${query ? query : ''}`)
             res.status(200).json({ success: true, response: transactions })
         } catch (error) {

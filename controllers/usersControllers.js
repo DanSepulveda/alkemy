@@ -17,11 +17,11 @@ const userControllers = {
         try {
             // Checking if email is registered
             const user = await pool.query(`SELECT email FROM users WHERE email = '${email}'`)
-            if (user.length) throw new Error('Email already in use')
+            if (user.length) throw new Error('Correo registrado')
 
             // Checking if new admin is being created by another admin
             if (admin && !req.user[0].admin) {
-                throw new Error('Access denied')
+                throw new Error('Acceso denegado')
             }
 
             // Creating new user in database
@@ -37,16 +37,17 @@ const userControllers = {
         }
     },
     login: async (req, res) => {
-        const { email, password } = req.body
+        let { email, password } = req.body
+        email = email.toLowerCase()
 
         try {
             // Checking if user exists
             const user = await pool.query(`SELECT * FROM users WHERE email = '${email}'`)
-            if (!user.length) throw new Error("User doesn't exist")
+            if (!user.length) throw new Error("Usuario no registrado")
 
             // Checking if password is correct
             const passMatch = await bcrypt.compareSync(password, user[0].password)
-            if (!passMatch) throw new Error('Password incorrect')
+            if (!passMatch) throw new Error('Clave incorrecta')
 
             // Getting user info from database and generating token
             const { username, id } = user[0]
@@ -70,11 +71,13 @@ const userControllers = {
         try {
             // Checking if password is correct before deleting account
             const passMatch = bcrypt.compareSync(userPassword, password)
-            if (!passMatch) throw new Error('Incorrect Password')
+            if (!passMatch) throw new Error('Clave incorrecta')
 
+            // Deleting users transactions
+            await pool.query(`DELETE FROM transactions WHERE user_id='${id}'`)
             // Deleting account
             await pool.query(`DELETE FROM users WHERE id = '${id}'`)
-            res.status(200).json({ success: true, response: 'Account deleted successfully' })
+            res.status(200).json({ success: true, response: 'Cuenta eliminada exitosamente' })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }

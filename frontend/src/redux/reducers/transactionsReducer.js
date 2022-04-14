@@ -29,6 +29,12 @@ const transactionsReducer = (state = initialState, action) => {
                 ...state,
                 top10: state.top10.filter(transaction => transaction.id !== action.payload)
             }
+        case 'CLEAR_TRANSACTIONS':
+            return {
+                balance: {},
+                top10: [],
+                allTransactions: []
+            }
         default:
             return {
                 ...state

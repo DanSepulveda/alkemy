@@ -8,6 +8,10 @@ const categoriesReducer = (state = initialState, action) => {
             return {
                 categories: action.payload
             }
+        case 'CLEAR_CATEGORIES':
+            return {
+                categories: []
+            }
         default:
             return {
                 ...state

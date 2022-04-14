@@ -9,7 +9,7 @@ const NavBox = ({ id, token, email, logout, deleteUser }) => {
         try {
             const response = await deleteUser(id, token, password)
             if (response.success) {
-                message('success', 'Cuenta borrada exitosamente')
+                message('success', response.response)
             } else {
                 message('error', response.error)
             }

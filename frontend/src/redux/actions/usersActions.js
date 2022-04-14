@@ -38,13 +38,15 @@ const userActions = {
     },
     deleteAccout: (id, token, password) => {
         return async (dispatch) => {
-            const response = await axios.post(`${HOST}/user/${id}`, { password }, {
+            const response = await axios.post(`${HOST}/delete-user/${id}`, { password }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
             if (response.data.success) {
                 dispatch({ type: 'LOGOUT', payload: null })
+                dispatch({ type: 'CLEAR_CATEGORIES', payload: null })
+                dispatch({ type: 'CLEAR_TRANSACTIONS', payload: null })
             }
             return response.data
         }
