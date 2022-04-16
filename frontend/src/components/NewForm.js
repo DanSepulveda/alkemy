@@ -11,14 +11,18 @@ import capitalize from '../utils/capitalize'
 
 const NewForm = ({ setForm, getCategories, categories, createTransaction, token, editMode, transaction, editTransaction }) => {
     const [cat, setCat] = useState('income')
+    const [buttonText, setButtonText] = useState(editMode ? 'Editar' : 'Guardar')
+    const disabled = buttonText.includes('...') ? true : false
 
     const addTransaction = async (values) => {
         try {
+            setButtonText('Creando...')
             const response = await createTransaction(values, token)
             if (response.success) {
                 message('success', 'Transacción creada correctamente')
                 setForm(false)
             } else {
+                setButtonText('Guardar')
                 throw new Error()
             }
         } catch (error) {
@@ -30,11 +34,15 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
         const isEdited = Object.keys(values).some(key => values[key] !== defaultValues[key])
         if (isEdited) {
             try {
+                console.log('1')
+                setButtonText('Actualizando...')
+                console.log('2')
                 const response = await editTransaction(transaction.id, values, token)
                 if (response.success) {
                     message('success', 'Cambios guardados correctamente')
                     setForm({ open: false, editMode: false, data: null })
                 } else {
+                    setButtonText('Editar')
                     throw new Error()
                 }
             } catch (error) {
@@ -112,8 +120,8 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
 
                         <InputText name='amount' id='amount' placeholder='Ej: 8000' label='Monto' type='number' />
                         <InputText name='description' id='description' placeholder='Ej: cuenta de luz' label='Descripción' />
-                        <button type='submit' id='send'>
-                            {editMode ? 'Editar' : 'Guardar'}
+                        <button type='submit' id='send' disabled={disabled}>
+                            {buttonText}
                         </button>
                     </Form>
                 </Formik>

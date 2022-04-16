@@ -6,14 +6,17 @@ const initialState = {
 }
 
 const usersReducer = (state = initialState, action) => {
-    switch (action.type) {
+    const { type, payload } = action
+
+    switch (type) {
         case 'LOGIN':
-            localStorage.setItem('token', action.payload.token)
+            const { id, username, email, token } = payload
+            localStorage.setItem('token', token)
             return {
-                id: action.payload.id,
-                username: action.payload.username,
-                email: action.payload.email,
-                token: action.payload.token,
+                id,
+                username,
+                email,
+                token
             }
         case 'LOGOUT':
             localStorage.removeItem('token')

@@ -9,10 +9,12 @@ const initialState = {
 }
 
 const transactionsReducer = (state = initialState, action) => {
-    switch (action.type) {
+    const { type, payload } = action
+
+    switch (type) {
         case 'CREATE_TRANSACTION':
             let newTransactions = JSON.parse(JSON.stringify(state.allTransactions))
-            newTransactions.push(action.payload)
+            newTransactions.push(payload)
             newTransactions = newTransactions.sort((a, b) => new Date(b.date) - new Date(a.date))
             return {
                 ...state,
@@ -26,22 +28,20 @@ const transactionsReducer = (state = initialState, action) => {
         case 'GET_TRANSACTIONS':
             return {
                 ...state,
-                allTransactions: action.payload,
+                allTransactions: payload,
                 allTransactionsFetched: true,
             }
         case 'GET_RESUME':
             return {
                 ...state,
-                balance: action.payload.resume[0],
-                top10: action.payload.top10,
+                balance: payload.resume[0],
+                top10: payload.top10,
                 top10Fetched: true
             }
         case 'EDIT_TRANSACTION':
-            const editedTransaction = action.payload
-
-            let updatedTransactions = JSON.parse(JSON.stringify(state.allTransactions)).filter(transaction => transaction.id !== editedTransaction.id)
-            updatedTransactions.push(editedTransaction)
-            updatedTransactions.sort((a, b) => a.date - b.date)
+            let updatedTransactions = JSON.parse(JSON.stringify(state.allTransactions)).filter(transaction => transaction.id !== payload.id)
+            updatedTransactions.push(payload)
+            updatedTransactions.sort((a, b) => new Date(b.date) - new Date(a.date))
             return {
                 ...state,
                 allTransactions: updatedTransactions,
@@ -52,7 +52,8 @@ const transactionsReducer = (state = initialState, action) => {
                 }
             }
         case 'DELETE':
-            const updated = state.allTransactions.filter(transaction => transaction.id !== action.payload)
+            let updated = state.allTransactions.filter(transaction => transaction.id !== payload)
+            updated.sort((a, b) => new Date(b.date) - new Date(a.date))
             return {
                 ...state,
                 allTransactions: updated,

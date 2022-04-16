@@ -30,13 +30,13 @@ const budgetControllers = {
         const user_id = req.user[0].id
 
         try {
-            const transaction = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id, transactions.user_id, categories.name, categories.image FROM transactions LEFT JOIN categories ON transactions.category_id=categories.id WHERE transactions.id=${req.params.id}`)
+            const transaction = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id, categories.name, categories.image FROM transactions LEFT JOIN categories ON transactions.category_id=categories.id WHERE transactions.id=${req.params.id}`)
 
             // Checking if there is a transaction with the consulted id
-            if (!transaction.length) throw new Error("Transaction doesn't exist")
+            if (!transaction.length) throw new Error('Transacción no existe')
 
             // Checking if transaction belongs to user
-            if (user_id != transaction[0].user_id) throw new Error('Access denied')
+            if (user_id != transaction[0].user_id) throw new Error('Acceso denegado')
 
             res.status(200).json({ success: true, response: transaction })
         } catch (error) {
@@ -75,6 +75,7 @@ const budgetControllers = {
             })
 
             await pool.query(`UPDATE transactions SET ${query} WHERE id=${req.params.id}`)
+
             const updatedTransaction = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id, categories.name, categories.image FROM transactions LEFT JOIN categories ON transactions.category_id=categories.id WHERE transactions.id='${req.params.id}'`)
             res.status(200).json({ success: true, response: updatedTransaction[0] })
         } catch (error) {
@@ -94,31 +95,6 @@ const budgetControllers = {
 
             await pool.query(`DELETE FROM transactions WHERE id='${req.params.id}'`)
             res.status(200).json({ success: true, response: 'Transacción eliminada' })
-        } catch (error) {
-            res.json({ success: false, error: error.message })
-        }
-    },
-    getTransactions: async (req, res) => {
-        try {
-            let query = req.params.query
-            if (!isNaN(query)) {
-                query = ` LIMIT ${query}`
-            } else if (query === 'all') {
-                query = null
-            } else {
-                throw new Error()
-            }
-            const transactions = await pool.query(`SELECT * FROM transactions`)
-            // const transactions = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id as category, categories.name, categories.image from transactions INNER JOIN categories ON category_id=categories.id ORDER BY date DESC${query ? query : ''}`)
-            res.status(200).json({ success: true, response: transactions })
-        } catch (error) {
-            res.json({ success: false, error: error.message })
-        }
-    },
-    getTransactionsPerType: async (req, res) => {
-        try {
-            let transactions = await pool.query(`SELECT transactions.id, transactions.description, transactions.type, transactions.amount, transactions.date, transactions.category_id as category, categories.name, categories.nombre, categories.image from transactions INNER JOIN categories ON category_id=categories.id WHERE transactions.type="${req.params.type}"`)
-            res.status(200).json({ success: true, response: transactions })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }

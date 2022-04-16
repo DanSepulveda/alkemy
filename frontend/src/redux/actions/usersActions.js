@@ -54,6 +54,8 @@ const userActions = {
     logout: () => {
         return (dispatch) => {
             dispatch({ type: 'LOGOUT', payload: null })
+            dispatch({ type: 'CLEAR_CATEGORIES', payload: null })
+            dispatch({ type: 'CLEAR_TRANSACTIONS', payload: null })
         }
     },
 }

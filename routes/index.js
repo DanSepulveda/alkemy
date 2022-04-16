@@ -57,12 +57,6 @@ router.route('/transaction/:id')
     .put(passport, transactionsControllers.editTransaction)
     .delete(passport, transactionsControllers.deleteTransaction)
 
-router.route('/transactions/:query')
-    .get(transactionsControllers.getTransactions)
-
-router.route('/transactions/cat/:type')
-    .get(transactionsControllers.getTransactionsPerType)
-
 router.route('/resume')
     .get(passport, transactionsControllers.getResume)
 

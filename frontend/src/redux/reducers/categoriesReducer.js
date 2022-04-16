@@ -3,10 +3,12 @@ const initialState = {
 }
 
 const categoriesReducer = (state = initialState, action) => {
-    switch (action.type) {
+    const { type, payload } = action
+
+    switch (type) {
         case 'GET_CATEGORIES':
             return {
-                categories: action.payload
+                categories: payload
             }
         case 'CLEAR_CATEGORIES':
             return {
