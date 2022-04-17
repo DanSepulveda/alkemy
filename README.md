@@ -2,17 +2,7 @@
 
 Mytinerary Challenge is a web application where people can manage their personal finances by registering money inflows and outflows.
 
-![image](frontend/public/assets/mytinerary.gif)
-
 ## Getting Started 🚀
-
-### Content
-
-This project has two branches: master and deployment. **master** is configured to be run in local while **host** is prepared to be hosted on Heroku.
-
-### Demo
-
-You can see a demo of this project on the following link: [Alkemy Challenge](https://)
 
 ### Installation 🔧
 
