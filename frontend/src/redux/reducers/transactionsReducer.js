@@ -8,7 +8,7 @@ const initialState = {
     allTransactions: [],
     allTransactionsFetched: false,
     filteredTransactions: [],
-    categories: []
+    categories: {}
 }
 
 const transactionsReducer = (state = initialState, action) => {
@@ -55,6 +55,10 @@ const transactionsReducer = (state = initialState, action) => {
             let updatedTransactions = JSON.parse(JSON.stringify(state.allTransactions)).filter(transaction => transaction.id !== payload.id)
             updatedTransactions.push(payload)
             updatedTransactions.sort((a, b) => new Date(b.date) - new Date(a.date))
+
+            let filteredUpdated = JSON.parse(JSON.stringify(state.filteredTransactions)).filter(transaction => transaction.id !== payload.id)
+            filteredUpdated.push(payload)
+            filteredUpdated.sort((a, b) => new Date(b.date) - new Date(a.date))
             return {
                 ...state,
                 allTransactions: updatedTransactions,
@@ -62,6 +66,11 @@ const transactionsReducer = (state = initialState, action) => {
                 balance: {
                     total_expenses: reduce(updatedTransactions, 'expense'),
                     total_income: reduce(updatedTransactions, 'income')
+                },
+                filteredTransactions: filteredUpdated,
+                categories: {
+                    income: getCategories(updatedTransactions, 'income'),
+                    expense: getCategories(updatedTransactions, 'expense')
                 }
             }
         case 'DELETE':
@@ -74,6 +83,11 @@ const transactionsReducer = (state = initialState, action) => {
                 balance: {
                     total_expenses: reduce(updated, 'expense'),
                     total_income: reduce(updated, 'income')
+                },
+                filteredTransactions: state.filteredTransactions.filter(transaction => transaction.id !== payload).sort((a, b) => new Date(b.date) - new Date(a.date)),
+                categories: {
+                    income: getCategories(updated, 'income'),
+                    expense: getCategories(updated, 'expense')
                 }
             }
         case 'FILTER':
@@ -90,9 +104,11 @@ const transactionsReducer = (state = initialState, action) => {
             return {
                 balance: {},
                 top10: [],
-                allTransactions: [],
                 top10Fetched: false,
-                allTransactionsFetched: false
+                allTransactions: [],
+                allTransactionsFetched: false,
+                filteredTransactions: [],
+                categories: {}
             }
         default:
             return {

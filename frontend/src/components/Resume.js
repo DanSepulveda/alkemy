@@ -22,6 +22,10 @@ const Resume = ({ token, getResume, top10, fetched }) => {
         }
     }
 
+    useState(() => {
+        document.title = 'Resumen | Budget App'
+    }, [])
+
     const title = !top10.length
         ? 'No existen movimientos'
         : `Últimos registros (${top10.length})`

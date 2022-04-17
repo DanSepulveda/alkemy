@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import SignForm from '../components/SignForm'
 import { useLocation } from 'react-router-dom'
 import MainSection from '../components/MainSection'
+import { useEffect } from 'react'
 
 const Login = () => {
     const path = useLocation().pathname
@@ -9,6 +10,10 @@ const Login = () => {
     const title = path === '/login'
         ? 'Ingresar a la cuenta'
         : 'Nuevo registro'
+
+    useEffect(() => {
+        document.title = path === '/login' ? 'Login | Budget App' : 'Registro | Budget App'
+    }, [path])
 
     return (
         <MainSection>

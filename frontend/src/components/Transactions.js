@@ -21,14 +21,14 @@ const Transactions = ({ token, getTransactions, allTransactions, filteredTransac
         }
     }
 
-    // const title = filteredTransactions.length
-    //     ? `Historial de movimientos (${filteredTransactions.length})`
-    //     : 'No existen movimientos'
     const title = (allTransactions.length && !filteredTransactions.length)
         ? 'No existen movimientos con los filtros indicados'
         : filteredTransactions.length
             ? `Historial de movimientos (${filteredTransactions.length})`
             : 'No existen movimientos'
+    useState(() => {
+        document.title = 'Movimientos | Budget App'
+    }, [])
 
     useEffect(() => {
         if (!fetched) {
