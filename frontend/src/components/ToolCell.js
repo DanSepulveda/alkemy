@@ -1,4 +1,4 @@
-import capitalize from "../utils/capitalize"
+import capitalize from '../utils/capitalize'
 
 const ToolCell = ({ title, icon, name, fx, selector }) => {
     return (

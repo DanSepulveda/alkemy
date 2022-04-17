@@ -34,9 +34,7 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
         const isEdited = Object.keys(values).some(key => values[key] !== defaultValues[key])
         if (isEdited) {
             try {
-                console.log('1')
                 setButtonText('Actualizando...')
-                console.log('2')
                 const response = await editTransaction(transaction.id, values, token)
                 if (response.success) {
                     message('success', 'Cambios guardados correctamente')
@@ -69,7 +67,7 @@ const NewForm = ({ setForm, getCategories, categories, createTransaction, token,
             description: transaction?.description,
             amount: transaction?.amount
         }
-        : { date: '', type: '', category: '', description: '', amount: '' }
+        : { date: (new Date()).toISOString().split('T')[0], type: '', category: '', description: '', amount: '' }
 
     const validationSchema = {
         date: Yup.date().required('Campo requerido'),

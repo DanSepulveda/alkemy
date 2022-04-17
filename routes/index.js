@@ -1,5 +1,5 @@
 const express = require('express')
-const passport = require("passport").authenticate('jwt', { session: false })
+const passport = require('passport').authenticate('jwt', { session: false })
 const router = express.Router()
 
 // CONTROLLERS

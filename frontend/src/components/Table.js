@@ -25,7 +25,7 @@ const Table = ({ transactions, title }) => {
                 ? <div className='flex-cc'>
                     <Link to='/details' className='create'>
                         Ir a crear
-                        <i class="fas fa-arrow-right"></i>
+                        <i class='fas fa-arrow-right'></i>
                     </Link>
                 </div>
                 : null

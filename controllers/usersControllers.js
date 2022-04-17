@@ -43,7 +43,7 @@ const userControllers = {
         try {
             // Checking if user exists
             const user = await pool.query(`SELECT * FROM users WHERE email = '${email}'`)
-            if (!user.length) throw new Error("Usuario no registrado")
+            if (!user.length) throw new Error('Usuario no registrado')
 
             // Checking if password is correct
             const passMatch = await bcrypt.compareSync(password, user[0].password)

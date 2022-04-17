@@ -9,6 +9,7 @@ const App = ({ token, verifyToken }) => {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) verifyToken(token)
+    //eslint-disable-next-line
   }, [])
 
   return (
@@ -18,7 +19,7 @@ const App = ({ token, verifyToken }) => {
         {token && <Route path='/details' element={<Records />} />}
         {!token && <Route path='/login' element={<Login />} />}
         {!token && <Route path='/signup' element={<Login />} />}
-        <Route path='*' element={<Navigate to={token ? '/' : "/login"} />} />
+        <Route path='*' element={<Navigate to={token ? '/' : '/login'} />} />
       </Routes>
     </BrowserRouter>
   )
