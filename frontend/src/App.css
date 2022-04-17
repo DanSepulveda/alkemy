@@ -275,30 +275,25 @@ div.row {
     flex-wrap: wrap;
 }
 
-div.date,
-section.filters>div:first-child {
+div.date {
     width: 15%;
 }
 
-div.type,
-section.filters>div:nth-child(2) {
+div.type {
     width: 5%;
 }
 
-div.category,
-section.filters>div:nth-child(3) {
+div.category {
     width: 10%;
 }
 
-div.description,
-section.filters>div:nth-child(4) {
+div.description {
     flex: 1;
     align-items: flex-start;
 }
 
 div.amount-expense,
-div.amount-income,
-section.filters>div:nth-child(5) {
+div.amount-income {
     width: 10%;
 }
 
@@ -379,7 +374,8 @@ div.input {
 }
 
 div.input input,
-select {
+select,
+section.filters input {
     width: 100%;
     background-color: transparent;
     color: whitesmoke;
@@ -400,12 +396,14 @@ section.new-transaction select {
     font-size: 16px;
 }
 
-div.input input::placeholder {
+div.input input::placeholder,
+section.filters input::placeholder {
     color: #ccc;
 }
 
 div.input input:focus,
-select {
+select,
+section.filters input:focus {
     border: 2px solid whitesmoke;
     outline: none;
 }
@@ -416,7 +414,8 @@ div.input div {
 }
 
 div.input span {
-    color: #1ab186bb;
+    color: #FF6B6B;
+    font-size: 13px;
 }
 
 input[type='date']::-webkit-calendar-picker-indicator {
@@ -424,11 +423,26 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 /* FILTERS */
-.filters {
+section.filters {
     margin-bottom: 1em;
     display: flex;
     width: 100%;
-    padding: 0 1em;
+    flex-wrap: wrap;
+}
+
+section.filters .flex-cc {
+    margin-right: 3em;
+}
+
+section.filters label {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+section.filters input,
+section.filters select {
+    font-size: 15px;
+    padding: .3em .5em;
 }
 
 /* NEW TRANSACTION FORM */
@@ -436,7 +450,7 @@ section.new-transaction {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 }
@@ -674,8 +688,6 @@ div.dot5 {
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 1400px) {}
-
 @media (max-width: 1200px) {
     div.box {
         width: 35vw;
@@ -704,43 +716,37 @@ div.dot5 {
         margin-right: .5em;
     }
 
-    div.date,
-    section.filters>div:first-child {
+    div.date {
         flex: 1;
         order: 2;
     }
 
-    div.type,
-    section.filters>div:nth-child(2) {
+    div.type {
         width: 15%;
         justify-content: flex-start;
         order: 3;
     }
 
-    div.category,
-    section.filters>div:nth-child(3) {
+    div.category {
         width: 20%;
         justify-content: flex-start;
         order: 4;
     }
 
-    div.description,
-    section.filters>div:nth-child(4) {
+    div.description {
         order: 6;
         width: 100%;
         margin-top: 5px;
         flex: unset;
     }
 
-    div.amount-expense,
-    div.amount-income section.filters>div:nth-child(5) {
+    div.amount-expense {
         width: 20%;
         justify-content: space-between;
         order: 5;
     }
 
-    div.actions,
-    section.filters>div:nth-child(6) {
+    div.actions {
         order: 7;
         width: 100%;
         justify-content: center;
@@ -756,6 +762,18 @@ div.dot5 {
     div.actions i {
         font-size: 20px;
         opacity: 70%;
+    }
+
+    section.filters {
+        justify-content: center;
+    }
+
+    section.filters .flex-cc {
+        flex-direction: column;
+    }
+
+    section.filters .flex-cc:last-child {
+        margin-right: 0;
     }
 }
 
@@ -817,6 +835,17 @@ div.dot5 {
     div.actions i {
         font-size: 20px;
         opacity: 70%;
+    }
+}
+
+@media (max-width: 630px) {
+    section.filters .flex-cc {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    section.filters label {
+        margin-top: 1em;
     }
 }
 

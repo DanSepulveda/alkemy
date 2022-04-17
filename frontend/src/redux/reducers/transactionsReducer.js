@@ -1,11 +1,14 @@
+import getCategories from '../../utils/getCategories'
 import reduce from '../../utils/reduce'
 
 const initialState = {
     balance: {},
     top10: [],
-    allTransactions: [],
     top10Fetched: false,
-    allTransactionsFetched: false
+    allTransactions: [],
+    allTransactionsFetched: false,
+    filteredTransactions: [],
+    categories: []
 }
 
 const transactionsReducer = (state = initialState, action) => {
@@ -18,11 +21,16 @@ const transactionsReducer = (state = initialState, action) => {
             newTransactions = newTransactions.sort((a, b) => new Date(b.date) - new Date(a.date))
             return {
                 ...state,
-                allTransactions: newTransactions,
-                top10: newTransactions.slice(0, 10),
                 balance: {
                     total_expenses: reduce(newTransactions, 'expense'),
                     total_income: reduce(newTransactions, 'income')
+                },
+                top10: newTransactions.slice(0, 10),
+                allTransactions: newTransactions,
+                filteredTransactions: newTransactions,
+                categories: {
+                    income: getCategories(newTransactions, 'income'),
+                    expense: getCategories(newTransactions, 'expense')
                 }
             }
         case 'GET_TRANSACTIONS':
@@ -30,6 +38,11 @@ const transactionsReducer = (state = initialState, action) => {
                 ...state,
                 allTransactions: payload,
                 allTransactionsFetched: true,
+                filteredTransactions: payload,
+                categories: {
+                    income: getCategories(payload, 'income'),
+                    expense: getCategories(payload, 'expense')
+                }
             }
         case 'GET_RESUME':
             return {
@@ -62,6 +75,16 @@ const transactionsReducer = (state = initialState, action) => {
                     total_expenses: reduce(updated, 'expense'),
                     total_income: reduce(updated, 'income')
                 }
+            }
+        case 'FILTER':
+            const { type, category, description } = payload
+
+            let filteredTransactions = state.allTransactions.filter(transaction => transaction.type.includes(type))
+            filteredTransactions = filteredTransactions.filter(transaction => transaction.name.includes(category))
+            filteredTransactions = filteredTransactions.filter(transaction => transaction.description.includes(description))
+            return {
+                ...state,
+                filteredTransactions: filteredTransactions
             }
         case 'CLEAR_TRANSACTIONS':
             return {

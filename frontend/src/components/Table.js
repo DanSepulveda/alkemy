@@ -20,7 +20,7 @@ const Table = ({ transactions, title }) => {
                 : null
             }
             <h1>{title}</h1>
-            {path === '/details' && transactions.length ? <Filters /> : null}
+            {path === '/details' && <Filters />}
             {!transactions.length && path === '/'
                 ? <div className='flex-cc'>
                     <Link to='/details' className='create'>

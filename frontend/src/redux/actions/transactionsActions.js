@@ -67,6 +67,11 @@ const transactionsActions = {
             }
             return response.data
         }
+    },
+    filter: (filters) => {
+        return (dispatch) => {
+            dispatch({ type: 'FILTER', payload: filters })
+        }
     }
 }
 

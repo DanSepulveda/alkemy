@@ -5,7 +5,7 @@ import message from '../utils/message'
 import transactionsActions from '../redux/actions/transactionsActions'
 import { connect } from 'react-redux'
 
-const Transactions = ({ token, getTransactions, transactions, fetched }) => {
+const Transactions = ({ token, getTransactions, allTransactions, filteredTransactions, fetched }) => {
     const [loading, setLoading] = useState(true)
 
     const fetchData = async () => {
@@ -21,9 +21,14 @@ const Transactions = ({ token, getTransactions, transactions, fetched }) => {
         }
     }
 
-    const title = transactions.length
-        ? `Historial de movimientos (${transactions.length})`
-        : 'No existen movimientos'
+    // const title = filteredTransactions.length
+    //     ? `Historial de movimientos (${filteredTransactions.length})`
+    //     : 'No existen movimientos'
+    const title = (allTransactions.length && !filteredTransactions.length)
+        ? 'No existen movimientos con los filtros indicados'
+        : filteredTransactions.length
+            ? `Historial de movimientos (${filteredTransactions.length})`
+            : 'No existen movimientos'
 
     useEffect(() => {
         if (!fetched) {
@@ -41,7 +46,7 @@ const Transactions = ({ token, getTransactions, transactions, fetched }) => {
     return (
         <section className='results'>
             <Table
-                transactions={transactions}
+                transactions={filteredTransactions}
                 title={title}
             />
         </section>
@@ -51,7 +56,8 @@ const Transactions = ({ token, getTransactions, transactions, fetched }) => {
 const mapStateToProps = state => {
     return {
         token: state.users.token,
-        transactions: state.transactions.allTransactions,
+        filteredTransactions: state.transactions.filteredTransactions,
+        allTransactions: state.transactions.allTransactions,
         fetched: state.transactions.allTransactionsFetched
     }
 }
