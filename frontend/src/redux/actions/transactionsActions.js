@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const HOST = 'http://localhost:4000/api'
+const HOST = 'https://alkemydansep.herokuapp.com/api'
 
 const transactionsActions = {
     createTransaction: (transaction, token) => {
