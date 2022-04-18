@@ -47,10 +47,10 @@ const categoriesControllers = {
         const { admin } = req.user[0]
         try {
             // Checking if user is admin before deleting table
-            if (!admin) throw new Error('Access denied')
+            if (!admin) throw new Error('Acceso denegado')
 
             await pool.query('DROP TABLE categories')
-            res.status(200).json({ success: true, message: 'Table categories deleted successfully' })
+            res.status(200).json({ success: true, message: 'Tabla categoías eliminada correctamente' })
         } catch (error) {
             res.json({ success: false, error: error.message })
         }
